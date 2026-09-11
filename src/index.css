@@ -1,0 +1,492 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Zen Kaku Gothic New', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+/* ==========================================================================
+   CSS Variables for Theming (Design Tokens)
+   ========================================================================== */
+
+/* デフォルト: モダン・ダークテーマ */
+:root,
+:root[data-theme="default"],
+:root.theme-default {
+  --color-bg: #020617;              /* slate-950 (メイン背景) */
+  --color-surface: #0f172a;         /* slate-900 (カード・モーダル・パネル) */
+  --color-surface-subtle: #020617;  /* slate-950 (インナーボックス・入力欄) */
+  --color-surface-muted: #1e293b;   /* slate-800 (中間サブコンテナ・バッジ) */
+  --color-surface-hover: #1e293b;   /* slate-800 (ホバー時背景) */
+  --color-border: #1e293b;          /* slate-800 (標準ボーダー) */
+  --color-border-subtle: rgba(30, 41, 59, 0.8); /* slate-800/80 (薄いボーダー) */
+  --color-text: #f1f5f9;            /* slate-100 (メイン文字色) */
+  --color-text-muted: #94a3b8;      /* slate-400 (補足・ラベル文字色) */
+  --color-text-subtle: #64748b;     /* slate-500 (プレースホルダー・非活性文字) */
+  --color-accent: #34d399;          /* emerald-400 (アクセントカラー) */
+  --color-accent-hover: #10b981;    /* emerald-500 (アクセントホバー) */
+  --color-accent-text: #020617;     /* slate-950 (アクセントボタン文字色) */
+  --color-modal-overlay: rgba(0, 0, 0, 0.75);
+
+  --color-header-bg: #0f172a;
+  --color-header-border: #1e293b;
+  --color-header-text: #ffffff;
+  --color-header-text-muted: #cbd5e1;
+
+  --scrollbar-thumb: #334155;
+  --scrollbar-track: rgba(15, 23, 42, 0.6);
+}
+
+/* クリーン・ライトテーマ (明るく見やすい清潔感あふれるライトテーマ) */
+:root[data-theme="clean_light"],
+:root[data-theme="clean-light"],
+:root.theme-clean_light,
+:root.theme-clean-light {
+  --color-bg: #f8fafc;              /* 明るいキャンバス背景 (slate-50) */
+  --color-surface: #ffffff;         /* 純白カード・モーダル (white) */
+  --color-surface-subtle: #f8fafc;  /* カード内のインナーボックス・入力欄 */
+  --color-surface-muted: #f1f5f9;   /* 薄いグレーのサブコンテナ・バッジ背景 */
+  --color-surface-hover: #f1f5f9;   /* ホバー時背景 */
+  --color-border: #e2e8f0;          /* 明るく綺麗な枠線 (slate-200) */
+  --color-border-subtle: #f1f5f9;   /* 微細枠線 (slate-100) */
+  --color-text: #0f172a;            /* 濃いネイビー文字 (slate-900) - コントラスト比 18.7:1 */
+  --color-text-muted: #334155;      /* 濃くはっきりした補足文字 (slate-700) - コントラスト比 9.5:1 (WCAG AAA適合) */
+  --color-text-subtle: #64748b;     /* 補助テキスト・未設定等 (slate-500) - コントラスト比 4.6:1 (WCAG AA適合) */
+  --color-accent: #047857;          /* 深みのあるエメラルド (emerald-700) - コントラスト比 6.1:1 (白背景で抜群の視認性) */
+  --color-accent-hover: #065f46;    /* エメラルドホバー (emerald-800) */
+  --color-accent-text: #ffffff;     /* エメラルドボタン上の純白文字 */
+  --color-modal-overlay: rgba(15, 23, 42, 0.5);
+
+  --color-header-bg: #0f172a;
+  --color-header-border: #1e293b;
+  --color-header-text: #ffffff;
+  --color-header-text-muted: #cbd5e1;
+
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-track: #f1f5f9;
+}
+
+/* ピクセルアートテーマ (レトロゲーム 8-bit / 16-bit スタイル) */
+:root[data-theme="pixel"],
+:root.theme-pixel {
+  --color-bg: #0c0e17;
+  --color-surface: #151828;
+  --color-surface-subtle: #0f111d;
+  --color-surface-muted: #20253d;
+  --color-surface-hover: #242940;
+  --color-border: #2d3352;
+  --color-border-subtle: #242940;
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-text-subtle: #64748b;
+  --color-accent: #22c55e;
+  --color-accent-hover: #16a34a;
+  --color-accent-text: #052e16;
+  --color-modal-overlay: rgba(0, 0, 0, 0.85);
+
+  --color-header-bg: #151828;
+  --color-header-border: #2d3352;
+  --color-header-text: #f1f5f9;
+  --color-header-text-muted: #94a3b8;
+
+  --scrollbar-thumb: #22c55e;
+  --scrollbar-track: #121420;
+}
+
+/* ==========================================================================
+   Tailwind CSS v4 Theme Token Extension
+   ========================================================================== */
+@theme {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-subtle: var(--color-surface-subtle);
+  --color-surface-muted: var(--color-surface-muted);
+  --color-surface-hover: var(--color-surface-hover);
+  --color-border: var(--color-border);
+  --color-border-subtle: var(--color-border-subtle);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-subtle: var(--color-text-subtle);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-text: var(--color-accent-text);
+  --color-header-bg: var(--color-header-bg);
+  --color-header-border: var(--color-header-border);
+  --color-header-text: var(--color-header-text);
+  --color-header-text-muted: var(--color-header-text-muted);
+}
+
+/* ==========================================================================
+   Unified Scrollbar
+   ========================================================================== */
+html, body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 9999px;
+}
+
+/* スクロールバー非表示用ユーティリティ */
+.scrollbar-none {
+  -ms-overflow-style: none !important; /* IE, Edge */
+  scrollbar-width: none !important; /* Firefox */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* iOS Safe Area Padding (下部固定バー用) */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ==========================================================================
+   Native Form Controls Theming
+   ========================================================================== */
+select option {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+/* ライトテーマ時のカード自然シャドウ付与 */
+:root[data-theme="clean_light"] .bg-surface,
+:root[data-theme="clean-light"] .bg-surface,
+.theme-clean_light .bg-surface,
+.theme-clean-light .bg-surface {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* ライトテーマ時のカラーテキストのコントラスト補正 (白背景での可読性向上・WCAG AA準拠) */
+:root[data-theme="clean_light"] .text-rose-400,
+:root[data-theme="clean-light"] .text-rose-400,
+.theme-clean_light .text-rose-400,
+.theme-clean-light .text-rose-400 {
+  color: #e11d48 !important; /* rose-600 (白背景でコントラスト比 4.7:1) */
+}
+
+:root[data-theme="clean_light"] .text-amber-400,
+:root[data-theme="clean-light"] .text-amber-400,
+.theme-clean_light .text-amber-400,
+.theme-clean-light .text-amber-400,
+:root[data-theme="clean_light"] .text-amber-300,
+:root[data-theme="clean-light"] .text-amber-300,
+.theme-clean_light .text-amber-300,
+.theme-clean-light .text-amber-300 {
+  color: #b45309 !important; /* amber-700 (白背景でコントラスト比 5.0:1 / WCAG AA適合) */
+}
+
+:root[data-theme="clean_light"] .hover\:text-amber-200:hover,
+:root[data-theme="clean-light"] .hover\:text-amber-200:hover,
+.theme-clean_light .hover\:text-amber-200:hover,
+.theme-clean-light .hover\:text-amber-200:hover,
+:root[data-theme="clean_light"] .hover\:text-amber-300:hover,
+:root[data-theme="clean-light"] .hover\:text-amber-300:hover,
+.theme-clean_light .hover\:text-amber-300:hover,
+.theme-clean-light .hover\:text-amber-300:hover {
+  color: #92400e !important; /* amber-800 (白背景でコントラスト比 7.0:1 / ホバー時も濃色維持) */
+}
+
+:root[data-theme="clean_light"] .text-sky-400,
+:root[data-theme="clean-light"] .text-sky-400,
+.theme-clean_light .text-sky-400,
+.theme-clean-light .text-sky-400,
+:root[data-theme="clean_light"] .text-sky-300,
+:root[data-theme="clean-light"] .text-sky-300,
+.theme-clean_light .text-sky-300,
+.theme-clean-light .text-sky-300 {
+  color: #0369a1 !important; /* sky-700 (白背景でコントラスト比 5.3:1) */
+}
+
+:root[data-theme="clean_light"] .text-blue-300,
+:root[data-theme="clean-light"] .text-blue-300,
+.theme-clean_light .text-blue-300,
+.theme-clean-light .text-blue-300,
+:root[data-theme="clean_light"] .text-blue-400,
+:root[data-theme="clean-light"] .text-blue-400,
+.theme-clean_light .text-blue-400,
+.theme-clean-light .text-blue-400 {
+  color: #1d4ed8 !important; /* blue-700 (白背景でコントラスト比 5.4:1) */
+}
+
+:root[data-theme="clean_light"] .text-pink-300,
+:root[data-theme="clean-light"] .text-pink-300,
+.theme-clean_light .text-pink-300,
+.theme-clean-light .text-pink-300 {
+  color: #be185d !important; /* pink-700 (白背景でコントラスト比 5.1:1) */
+}
+
+:root[data-theme="clean_light"] .text-purple-300,
+:root[data-theme="clean-light"] .text-purple-300,
+.theme-clean_light .text-purple-300,
+.theme-clean-light .text-purple-300 {
+  color: #7e22ce !important; /* purple-700 (白背景でコントラスト比 5.5:1) */
+}
+
+:root[data-theme="clean_light"] .text-rose-400,
+:root[data-theme="clean-light"] .text-rose-400,
+.theme-clean_light .text-rose-400,
+.theme-clean-light .text-rose-400,
+:root[data-theme="clean_light"] .text-rose-300,
+:root[data-theme="clean-light"] .text-rose-300,
+.theme-clean_light .text-rose-300,
+.theme-clean-light .text-rose-300 {
+  color: #e11d48 !important; /* rose-600 (白背景でコントラスト比 4.7:1) */
+}
+
+:root[data-theme="clean_light"] .hover\:text-rose-300:hover,
+:root[data-theme="clean-light"] .hover\:text-rose-300:hover,
+.theme-clean_light .hover\:text-rose-300:hover,
+.theme-clean-light .hover\:text-rose-300:hover {
+  color: #be123c !important; /* rose-700 (白背景でコントラスト比 6.2:1) */
+}
+
+:root[data-theme="clean_light"] .text-emerald-400,
+:root[data-theme="clean-light"] .text-emerald-400,
+.theme-clean_light .text-emerald-400,
+.theme-clean-light .text-emerald-400,
+:root[data-theme="clean_light"] .text-emerald-300,
+:root[data-theme="clean-light"] .text-emerald-300,
+.theme-clean_light .text-emerald-300,
+.theme-clean-light .text-emerald-300 {
+  color: #047857 !important; /* emerald-700 (白背景でコントラスト比 6.1:1) */
+}
+
+/* ライトテーマ時の塗りつぶしアクセント要素 (ボタン・トグル・バッジ等) の白文字保証 (WCAG適合) */
+:root[data-theme="clean_light"] .bg-accent:not([class*="bg-accent/"]),
+:root[data-theme="clean-light"] .bg-accent:not([class*="bg-accent/"]),
+.theme-clean_light .bg-accent:not([class*="bg-accent/"]),
+.theme-clean-light .bg-accent:not([class*="bg-accent/"]),
+:root[data-theme="clean_light"] [class*="bg-emerald-600"],
+:root[data-theme="clean-light"] [class*="bg-emerald-600"],
+.theme-clean_light [class*="bg-emerald-600"],
+.theme-clean-light [class*="bg-emerald-600"] {
+  color: #ffffff !important;
+}
+
+:root[data-theme="clean_light"] .bg-accent:not([class*="bg-accent/"]) > *,
+:root[data-theme="clean-light"] .bg-accent:not([class*="bg-accent/"]) > *,
+.theme-clean_light .bg-accent:not([class*="bg-accent/"]) > *,
+.theme-clean-light .bg-accent:not([class*="bg-accent/"]) > * {
+  color: inherit;
+}
+
+/* ==========================================================================
+   Theme: Pixel Art (レトロゲーム 8-bit / 16-bit スタイル)
+   ========================================================================== */
+.theme-pixel,
+body.theme-pixel,
+html.theme-pixel {
+  font-family: 'DotGothic16', monospace, sans-serif !important;
+  background-color: #0c0e17 !important;
+  color: #f1f5f9 !important;
+  letter-spacing: 0.03em;
+  scrollbar-width: auto !important;
+  scrollbar-color: #22c55e #121420 !important;
+}
+
+.theme-pixel *,
+body.theme-pixel * {
+  font-family: 'DotGothic16', monospace, sans-serif !important;
+  border-radius: 0px !important;
+  text-shadow: none !important;
+  scrollbar-width: auto !important;
+  scrollbar-color: #22c55e #121420 !important;
+}
+
+.theme-pixel ::-webkit-scrollbar,
+body.theme-pixel ::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.theme-pixel ::-webkit-scrollbar-track,
+body.theme-pixel ::-webkit-scrollbar-track {
+  background: #121420 !important;
+  border: 1px solid #2d3352 !important;
+}
+
+.theme-pixel ::-webkit-scrollbar-thumb,
+body.theme-pixel ::-webkit-scrollbar-thumb {
+  background: #22c55e !important;
+  border: 2px solid #0c0e17 !important;
+  border-radius: 0px !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+.theme-pixel ::-webkit-scrollbar-thumb:hover,
+body.theme-pixel ::-webkit-scrollbar-thumb:hover {
+  background: #4ade80 !important;
+}
+
+.theme-pixel ::-webkit-scrollbar-thumb:active,
+body.theme-pixel ::-webkit-scrollbar-thumb:active {
+  background: #86efac !important;
+}
+
+.theme-pixel ::-webkit-scrollbar-corner,
+body.theme-pixel ::-webkit-scrollbar-corner {
+  background: #0c0e17 !important;
+  border: 1px solid #2d3352 !important;
+}
+
+.theme-pixel .bg-slate-950,
+.theme-pixel .bg-surface-subtle {
+  background-color: #0c0e17 !important;
+}
+
+.theme-pixel .bg-slate-900,
+.theme-pixel .bg-surface {
+  background-color: #151828 !important;
+  border: 2px solid #2d3352 !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+}
+
+.theme-pixel .bg-slate-900\/50,
+.theme-pixel .bg-slate-900\/60,
+.theme-pixel .bg-slate-900\/80,
+.theme-pixel .bg-slate-950\/80,
+.theme-pixel .bg-slate-950\/90,
+.theme-pixel .bg-surface\/60,
+.theme-pixel .bg-surface\/95 {
+  background-color: rgba(12, 14, 23, 0.95) !important;
+}
+
+.theme-pixel .bg-slate-800,
+.theme-pixel .bg-surface-hover,
+.theme-pixel .bg-surface-muted {
+  background-color: #20253d !important;
+  border: 1px solid #363d5e !important;
+}
+
+.theme-pixel .border-slate-800,
+.theme-pixel .border-slate-700,
+.theme-pixel .border-border {
+  border-color: #2d3352 !important;
+}
+
+.theme-pixel .divide-slate-800 > * + * {
+  border-color: #242940 !important;
+}
+
+.theme-pixel button,
+.theme-pixel .cursor-pointer {
+  border-radius: 0px !important;
+  transition: transform 0.05s, box-shadow 0.05s !important;
+}
+
+.theme-pixel button:active,
+.theme-pixel .cursor-pointer:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 1px 1px 0px #000000 !important;
+}
+
+.theme-pixel .bg-emerald-400 {
+  background-color: #22c55e !important;
+  color: #052e16 !important;
+  border: 2px solid #166534 !important;
+  box-shadow: 3px 3px 0px #000000 !important;
+  font-weight: bold;
+}
+
+.theme-pixel .bg-emerald-400:hover {
+  background-color: #4ade80 !important;
+}
+
+.theme-pixel .text-emerald-400 {
+  color: #4ade80 !important;
+}
+
+.theme-pixel .text-rose-400 {
+  color: #f87171 !important;
+}
+
+.theme-pixel .text-amber-400 {
+  color: #facc15 !important;
+}
+
+.theme-pixel .text-blue-400 {
+  color: #38bdf8 !important;
+}
+
+.theme-pixel input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.theme-pixel select,
+.theme-pixel textarea {
+  background-color: #0f111d !important;
+  border: 2px solid #363d5e !important;
+  color: #ffffff !important;
+  box-shadow: inset 2px 2px 0px #000000 !important;
+}
+
+.theme-pixel input:focus,
+.theme-pixel select:focus,
+.theme-pixel textarea:focus {
+  border-color: #22c55e !important;
+  box-shadow: inset 2px 2px 0px #000000, 0 0 0 1px #22c55e !important;
+}
+
+/* ==========================================================================
+   Print Rules
+   ========================================================================== */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
+
+/* ==========================================================================
+   iOS Safari タップ・フォーカス時の自動ズーム防止
+   ========================================================================== */
+html,
+body,
+input,
+textarea,
+select,
+button {
+  touch-action: manipulation;
+}
+
+/* iOS Safariはフォントサイズ16px未満のフォーム要素にフォーカスすると自動ズームする仕様があるため、
+   モバイル画面（768px未満）で16pxを確保して強制ズームを100%防止します */
+@media screen and (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "バドミントンクラブ運営費管理システム",
+  "description": "バドミントンクラブチームの収支出納帳、部費・月謝徴収管理、シャトル在庫・練習別コスト試算、年間予算管理を一元化できる運営費管理システム",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,41 @@
+{
+  "entities": {
+    "ClubAppData": {
+      "title": "ClubAppData",
+      "description": "Entire isolated club accounting, members, matches, and shuttle data for a single user/club account",
+      "type": "object",
+      "properties": {
+        "transactions": {
+          "type": "array",
+          "description": "List of income and expense transactions"
+        },
+        "members": {
+          "type": "array",
+          "description": "List of club members"
+        },
+        "practiceSessions": {
+          "type": "array",
+          "description": "History of practice sessions and calculations"
+        },
+        "shuttleStocks": {
+          "type": "array",
+          "description": "List of shuttle brands, stock counts, and prices"
+        },
+        "reimbursements": {
+          "type": "array",
+          "description": "Settlement and reimbursement history"
+        },
+        "settings": {
+          "type": "object",
+          "description": "Club financial and operational settings"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/club_app_data/{userId}": {
+      "schema": "ClubAppData",
+      "description": "Document holding all club state isolated per authenticated user"
+    }
+  }
+}

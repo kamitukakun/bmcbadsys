@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1クラブ = 1Googleアカウント（UID）の運用前提に基づき、
+    // 自身のUIDと一致する club_app_data ドキュメントのみ読み書きを許可する
+    match /club_app_data/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+
