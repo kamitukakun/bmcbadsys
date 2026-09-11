@@ -154,11 +154,11 @@ export const LedgerView: React.FC<LedgerViewProps> = ({
       {/* Top Header & Actions Bento Card */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface border border-border rounded-2xl p-6 shadow-md">
         <div>
-          <h2 className="text-sm sm:text-xl font-bold text-text tracking-tight flex items-center gap-2">
+          <h2 className="text-base sm:text-xl font-bold text-text tracking-tight flex items-center gap-2">
             <FileText className="w-5 h-5 text-accent" />
             <span>収支出納帳</span>
           </h2>
-          <p className="text-xs sm:text-sm text-text-muted mt-1">
+          <p className="text-[10px] sm:text-sm text-text-subtle leading-snug mt-1">
             支出先の記録、立替とクラブ口座資金の管理、CSV出力
           </p>
         </div>

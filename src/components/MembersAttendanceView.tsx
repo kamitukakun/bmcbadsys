@@ -145,11 +145,11 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
             <div className="p-2 bg-accent/15 border border-accent/30 rounded-full text-accent">
               <Users className="w-5 h-5" />
             </div>
-            <h2 className="text-sm sm:text-xl font-bold text-text tracking-tight">
+            <h2 className="text-base sm:text-xl font-bold text-text tracking-tight">
               名簿管理
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-text-muted mt-1">
+          <p className="text-[10px] sm:text-sm text-text-subtle leading-snug mt-1">
             生年月日・年齢・緊急連絡先の管理、各イベントの参加実績
           </p>
         </div>

@@ -1388,10 +1388,10 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
               <Swords className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-sm sm:text-xl font-black text-text flex items-center gap-2 flex-wrap">
+              <h1 className="text-base sm:text-xl font-black text-text flex items-center gap-2 flex-wrap">
                 <span>ダブルス組合せ</span>
               </h1>
-              <p className="text-xs text-text-muted mt-0.5">
+              <p className="text-[10px] sm:text-sm text-text-subtle leading-snug mt-0.5">
                 試合生成後も名簿交代可能。公平な乱数自動編成で、終了後は練習会出納帳へワンタップ連携します。
               </p>
             </div>

@@ -194,11 +194,11 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
             <div className="p-2 bg-amber-500/15 border border-amber-500/30 rounded-full text-amber-400">
               <CircleDollarSign className="w-5 h-5" />
             </div>
-            <h2 className="text-sm sm:text-xl font-bold text-text tracking-tight">
+            <h2 className="text-base sm:text-xl font-bold text-text tracking-tight">
               立替金・借入精算管理
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-text-muted mt-1">
+          <p className="text-[10px] sm:text-sm text-text-subtle leading-snug mt-1">
             個人で立替えた支払いの債務追跡とクラブ残高からの返済・精算台帳
           </p>
         </div>

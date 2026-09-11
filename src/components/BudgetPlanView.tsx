@@ -256,11 +256,11 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
             <span className="p-2 bg-accent/10 text-accent rounded-full border border-accent/20">
               <Target className="w-5 h-5" />
             </span>
-            <h2 className="text-sm sm:text-xl font-black text-text tracking-tight">
+            <h2 className="text-base sm:text-xl font-black text-text tracking-tight">
               年間予算計画
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-text-muted mt-2">
+          <p className="text-[10px] sm:text-sm text-text-subtle leading-snug mt-2">
             年度活動予算に対する実績進捗率、残予算枠、期末黒字予測のシミュレーション
           </p>
         </div>

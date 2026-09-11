@@ -522,12 +522,12 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
         <Calculator className="w-4 h-4 sm:w-5 sm:h-5" />
       </div>
 
-      <h2 className="text-sm sm:text-xl font-bold text-text tracking-tight">
+      <h2 className="text-base sm:text-xl font-bold text-text tracking-tight">
         {editingSessionId ? '練習会を編集' : '練習会を登録'}
       </h2>
     </div>
 
-    <p className="text-[11px] sm:text-xs lg:text-sm text-text-muted mt-1.5 sm:mt-2">
+    <p className="text-[10px] sm:text-xs lg:text-sm text-text-subtle leading-snug mt-1.5 sm:mt-2">
       「<strong className="text-accent">当日利用したシャトル本数</strong>」と「<strong className="text-accent">参加人数</strong>」から、赤字を出さない目安金額を<strong className="text-accent">100円単位</strong>で自動算出します。
     </p>
   </div>

@@ -250,14 +250,14 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-sm sm:text-2xl font-black text-text tracking-tight flex items-center gap-2.5">
+            <h1 className="text-base sm:text-2xl font-black text-text tracking-tight flex items-center gap-2.5">
               <span className="p-2 bg-accent/10 border border-accent/20 rounded-full text-accent shrink-0">
                 <Package className="w-6 h-6" />
               </span>
               <span>シャトル管理</span>
             </h1>
           </div>
-          <p className="text-xs sm:text-sm text-text-muted mt-1 max-w-2xl leading-relaxed">
+          <p className="text-[10px] sm:text-sm text-text-subtle mt-1 max-w-2xl leading-snug sm:leading-relaxed">
             シャトルをリアルタイム在庫管理。練習消費の自動減算・仕入れ記帳・80%棚卸資産評価を自動化
           </p>
         </div>

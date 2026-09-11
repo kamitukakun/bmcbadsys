@@ -481,6 +481,22 @@ button {
   textarea {
     font-size: 16px !important;
   }
+
+  /* 入力文字の視覚的な圧迫感を軽減（サイズはズーム防止のため16px固定のまま、
+     太さと行間だけを軽くして「大きく見える」印象を和らげる） */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  textarea {
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.005em;
+  }
+
+  /* ラベル類は意図的に小さく・控えめにし、入力値とのメリハリ（視認性の基本原則）を確保 */
+  label {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.01em;
+  }
 }
 
 @layer base {
