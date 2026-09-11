@@ -6,3 +6,7 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Claude連携用の更新受け渡しファイル（コミット対象外）
+apply_update.bat
+.claude-update.bundle
