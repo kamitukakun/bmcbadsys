@@ -8,6 +8,7 @@ import {
   Palette,
   Sparkles,
   Sun,
+  Moon,
   Feather,
   Gamepad2,
   Check,
@@ -23,6 +24,25 @@ interface SettingsModalProps {
   onResetSampleData: () => void;
 }
 
+type ThemeStyle = 'modern' | 'pixel';
+type ThemeMode = 'light' | 'dark';
+
+// AppTheme (保存値) ⇔ {スタイル, 明暗モード} の相互変換。
+// 既存の保存済みテーマ値(default/clean_light/pixel)は無変換でそのまま復元できる。
+const THEME_TO_STYLE_MODE: Record<AppTheme, { style: ThemeStyle; mode: ThemeMode }> = {
+  default: { style: 'modern', mode: 'dark' },
+  clean_light: { style: 'modern', mode: 'light' },
+  pixel: { style: 'pixel', mode: 'dark' },
+  pixel_light: { style: 'pixel', mode: 'light' },
+};
+
+function styleModeToTheme(style: ThemeStyle, mode: ThemeMode): AppTheme {
+  if (style === 'modern') {
+    return mode === 'light' ? 'clean_light' : 'default';
+  }
+  return mode === 'light' ? 'pixel_light' : 'pixel';
+}
+
 export const SettingsModal: React.FC<SettingsModalProps> = ({
   isOpen,
   onClose,
@@ -36,7 +56,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const [clubName, setClubName] = useState(settings.clubName);
   const [treasurerName, setTreasurerName] = useState(settings.treasurerName);
   const [valuationRate, setValuationRate] = useState(settings.shuttleValuationRate || 80);
-  const [selectedTheme, setSelectedTheme] = useState<AppTheme>(settings.theme || 'default');
+  const initialStyleMode = THEME_TO_STYLE_MODE[settings.theme || 'default'] || THEME_TO_STYLE_MODE.default;
+  const [selectedStyle, setSelectedStyle] = useState<ThemeStyle>(initialStyleMode.style);
+  const [selectedMode, setSelectedMode] = useState<ThemeMode>(initialStyleMode.mode);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [confirmAction, setConfirmAction] = useState<'reset' | null>(null);
   const [isResetting, setIsResetting] = useState(false);
@@ -48,7 +70,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       clubName,
       treasurerName,
       shuttleValuationRate: Number(valuationRate),
-      theme: selectedTheme,
+      theme: styleModeToTheme(selectedStyle, selectedMode),
       logoUrl: settings.logoUrl,
     });
     setSaveSuccess(true);
@@ -79,24 +101,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
     }
   };
 
-  const themeOptions: { id: AppTheme; name: string; subtitle: string; desc: string; icon: React.ReactNode; previewBg: string; badge: string }[] = [
+  const styleOptions: { id: ThemeStyle; name: string; subtitle: string; desc: string; icon: React.ReactNode }[] = [
     {
-      id: 'default',
-      name: 'デフォルト',
-      subtitle: 'Modern Dark',
-      desc: '洗練されたスレート＆エメラルド調の目に優しいダークモード',
+      id: 'modern',
+      name: 'モダン',
+      subtitle: 'Modern',
+      desc: '洗練されたスレート＆エメラルド調のスタンダードなデザイン',
       icon: <Sparkles className="w-4 h-4 text-emerald-400" />,
-      previewBg: 'bg-slate-950 border-slate-700',
-      badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
-    },
-    {
-      id: 'clean_light',
-      name: 'Clean Light',
-      subtitle: 'クリーンライト',
-      desc: '明るく清潔感があり、長時間利用しても疲れにくいライトテーマ',
-      icon: <Sun className="w-4 h-4 text-emerald-600" />,
-      previewBg: 'bg-white border-slate-200',
-      badge: 'bg-emerald-100 text-emerald-800 border-emerald-300',
     },
     {
       id: 'pixel',
@@ -104,10 +115,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       subtitle: 'Pixel Art (8-bit)',
       desc: 'レトロゲーム風のドット絵フォント＆アーケードスタイル',
       icon: <Gamepad2 className="w-4 h-4 text-amber-400" />,
-      previewBg: 'bg-[#101428] border-indigo-500',
-      badge: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
     },
   ];
+
+  const modeOptions: { id: ThemeMode; name: string; icon: React.ReactNode }[] = [
+    { id: 'light', name: 'ライト', icon: <Sun className="w-3.5 h-3.5" /> },
+    { id: 'dark', name: 'ダーク', icon: <Moon className="w-3.5 h-3.5" /> },
+  ];
+
+  const styleName = selectedStyle === 'modern' ? 'モダン' : 'ピクセルアート';
+  const modeName = selectedMode === 'light' ? 'ライト' : 'ダーク';
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in no-print overflow-y-auto">
@@ -239,19 +256,20 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 <span>画面デザイン・テーマ設定</span>
               </div>
               <span className="text-[11px] font-bold text-text-muted">
-                {selectedTheme === 'default' ? 'デフォルト' : selectedTheme === 'clean_light' ? 'Clean Light' : 'ピクセルアート'}
+                {styleName}・{modeName}
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-              {themeOptions.map((opt) => {
-                const isSelected = selectedTheme === opt.id;
+            {/* スタイル選択 */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {styleOptions.map((opt) => {
+                const isSelected = selectedStyle === opt.id;
                 return (
                   <button
                     key={opt.id}
                     type="button"
-                    onClick={() => setSelectedTheme(opt.id)}
-                    className={`p-3 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer ${
+                    onClick={() => setSelectedStyle(opt.id)}
+                    className={`p-3 rounded-xl border text-left transition-all active:scale-[0.98] relative flex flex-col justify-between cursor-pointer ${
                       isSelected
                         ? 'border-accent bg-surface shadow-md ring-1 ring-accent'
                         : 'border-border bg-surface/60 hover:border-border hover:bg-surface'
@@ -281,6 +299,33 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   </button>
                 );
               })}
+            </div>
+
+            {/* 明暗モード切替 */}
+            <div>
+              <div className="text-[10px] font-bold text-text-subtle uppercase tracking-wider mb-1.5">
+                明暗モード
+              </div>
+              <div className="flex items-center gap-1.5 p-1 bg-surface rounded-xl border border-border">
+                {modeOptions.map((opt) => {
+                  const isSelected = selectedMode === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setSelectedMode(opt.id)}
+                      className={`flex-1 py-2 px-2 rounded-lg font-bold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] cursor-pointer ${
+                        isSelected
+                          ? 'bg-accent text-accent-text shadow-sm'
+                          : 'text-text-muted hover:text-text hover:bg-surface-hover'
+                      }`}
+                    >
+                      {opt.icon}
+                      <span>{opt.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -316,18 +361,20 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </button>
             <button
               type="submit"
-              className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              className={`flex-1 py-2.5 font-bold text-xs rounded-xl shadow-md transition-colors cursor-pointer flex items-center justify-center gap-1.5 active:scale-[0.98] ${
+                saveSuccess ? 'bg-emerald-600 text-white' : 'bg-accent hover:bg-accent-hover text-accent-text'
+              }`}
             >
               {saveSuccess ? (
-                <>
+                <span key="success" className="animate-state-fade-in flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>保存しました</span>
-                </>
+                </span>
               ) : (
-                <>
+                <span key="idle" className="flex items-center gap-1.5">
                   <Save className="w-4 h-4" />
                   <span>設定を保存</span>
-                </>
+                </span>
               )}
             </button>
           </div>

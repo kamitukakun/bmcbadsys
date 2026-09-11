@@ -441,7 +441,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                         if (onDeleteSession) onDeleteSession(deleteTargetSessionId, true);
                         setDeleteTargetSessionId(null);
                       }}
-                      className="w-full py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold rounded-xl shadow-md transition-all cursor-pointer text-xs"
+                      className="w-full py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer text-xs"
                     >
                       削除してシャトルを戻す
                     </button>
@@ -538,7 +538,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
       <button
         type="button"
         onClick={() => setIncludeFacilityCost(true)}
-        className={`flex-1 lg:flex-none px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap ${
+        className={`flex-1 lg:flex-none px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold transition-all active:scale-[0.98] cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap ${
           includeFacilityCost
             ? 'bg-accent text-accent-text shadow-md'
             : 'text-text-muted hover:text-text'
@@ -551,7 +551,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
       <button
         type="button"
         onClick={() => setIncludeFacilityCost(false)}
-        className={`flex-1 lg:flex-none px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap ${
+        className={`flex-1 lg:flex-none px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-bold transition-all active:scale-[0.98] cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap ${
           !includeFacilityCost
             ? 'bg-accent text-accent-text shadow-md'
             : 'text-text-muted hover:text-text'

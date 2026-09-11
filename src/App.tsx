@@ -79,8 +79,8 @@ export default function App() {
   // Apply theme class to document
   useEffect(() => {
     const theme = state.settings.theme || 'default';
-    document.documentElement.classList.remove('theme-default', 'theme-pixel', 'theme-clean_light', 'theme-clean-light');
-    document.body.classList.remove('theme-default', 'theme-pixel', 'theme-clean_light', 'theme-clean-light');
+    document.documentElement.classList.remove('theme-default', 'theme-pixel', 'theme-pixel_light', 'theme-clean_light', 'theme-clean-light');
+    document.body.classList.remove('theme-default', 'theme-pixel', 'theme-pixel_light', 'theme-clean_light', 'theme-clean-light');
     document.documentElement.classList.add(`theme-${theme}`);
     document.body.classList.add(`theme-${theme}`);
     if (theme === 'clean_light') {

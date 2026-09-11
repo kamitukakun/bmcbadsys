@@ -191,7 +191,7 @@ export interface AnnualBudgetPlan {
   notes?: string;
 }
 
-export type AppTheme = 'default' | 'clean_light' | 'pixel';
+export type AppTheme = 'default' | 'clean_light' | 'pixel' | 'pixel_light';
 
 export interface ClubSettings {
   clubName: string;

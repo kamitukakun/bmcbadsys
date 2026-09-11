@@ -185,7 +185,7 @@ export const LedgerView: React.FC<LedgerViewProps> = ({
           <button
             type="button"
             onClick={onOpenTransactionModal}
-            className="px-4 py-2.5 text-xs sm:text-sm font-bold text-accent-text bg-accent hover:bg-accent-hover rounded-xl transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2.5 text-xs sm:text-sm font-bold text-accent-text bg-accent hover:bg-accent-hover rounded-xl transition-all active:scale-[0.98] shadow-md flex items-center gap-2 cursor-pointer"
           >
             <PlusCircle className="w-4 h-4" />
             <span>収支を記帳</span>

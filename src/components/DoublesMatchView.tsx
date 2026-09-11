@@ -1405,7 +1405,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
               <button
                 type="button"
                 onClick={() => setShowConfirmToSessionModal(true)}
-                className="min-h-[44px] px-4 py-2 bg-accent hover:bg-accent-hover text-accent-text font-black text-xs rounded-xl shadow-lg transition-all flex items-center gap-1.5 cursor-pointer"
+                className="min-h-[44px] px-4 py-2 bg-accent hover:bg-accent-hover text-accent-text font-black text-xs rounded-xl shadow-lg transition-all active:scale-[0.98] flex items-center gap-1.5 cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>出納帳へ連携</span>
@@ -1529,7 +1529,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setCreationMethod('batch')}
-                    className={`flex-1 min-h-[38px] py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${creationMethod === 'batch'
+                    className={`flex-1 min-h-[38px] py-1.5 rounded-xl text-xs font-black transition-all active:scale-[0.98] cursor-pointer ${creationMethod === 'batch'
                       ? 'bg-accent text-accent-text shadow-md'
                       : 'text-text-muted hover:text-text'
                       }`}
@@ -1539,7 +1539,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setCreationMethod('stream')}
-                    className={`flex-1 min-h-[38px] py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${creationMethod === 'stream'
+                    className={`flex-1 min-h-[38px] py-1.5 rounded-xl text-xs font-black transition-all active:scale-[0.98] cursor-pointer ${creationMethod === 'stream'
                       ? 'bg-accent text-accent-text shadow-md'
                       : 'text-text-muted hover:text-text'
                       }`}
@@ -1989,7 +1989,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                 disabled={selectedMemberIds.length < 4}
                 className={`w-full min-h-[48px] py-3 mb-3 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xl transition-all ${
                   selectedMemberIds.length >= 4
-                    ? 'bg-accent hover:bg-accent-hover text-accent-text cursor-pointer'
+                    ? 'bg-accent hover:bg-accent-hover text-accent-text cursor-pointer active:scale-[0.98]'
                     : 'bg-surface-hover text-text-muted cursor-not-allowed opacity-60 border border-border'
                   }`}
               >
@@ -2256,7 +2256,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
               <button
                 type="button"
                 onClick={handleConfirmTransferToPracticeSession}
-                className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer flex items-center justify-center gap-1.5"
               >
                 <ArrowRight className="w-4 h-4" />
                 <span>練習会登録画面へ進む</span>
@@ -2298,7 +2298,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
               <button
                 type="button"
                 onClick={confirmDialog.onConfirm}
-                className={`flex-1 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all cursor-pointer ${confirmDialog.isDanger
+                className={`flex-1 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all active:scale-[0.98] cursor-pointer ${confirmDialog.isDanger
                   ? 'bg-rose-500 hover:bg-rose-400 text-white'
                   : 'bg-accent hover:bg-accent-hover text-accent-text'
                   }`}

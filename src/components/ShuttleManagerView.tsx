@@ -266,7 +266,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
           <button
             type="button"
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap min-h-[40px]"
+            className="px-4 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all active:scale-[0.98] flex items-center gap-1.5 cursor-pointer whitespace-nowrap min-h-[40px]"
           >
             <PlusCircle className="w-4 h-4 shrink-0" />
             <span>新規銘柄を登録</span>
@@ -717,7 +717,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                       onClick={() => {
                         setRestockInputMode('tubes');
                       }}
-                      className={`py-2 rounded-xl font-bold text-xs transition-all cursor-pointer ${restockInputMode === 'tubes'
+                      className={`py-2 rounded-xl font-bold text-xs transition-all active:scale-[0.98] cursor-pointer ${restockInputMode === 'tubes'
                           ? 'bg-accent text-accent-text shadow-sm'
                           : 'text-text-muted hover:text-text'
                         }`}
@@ -729,7 +729,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                       onClick={() => {
                         setRestockInputMode('balls');
                       }}
-                      className={`py-2 rounded-xl font-bold text-xs transition-all cursor-pointer ${restockInputMode === 'balls'
+                      className={`py-2 rounded-xl font-bold text-xs transition-all active:scale-[0.98] cursor-pointer ${restockInputMode === 'balls'
                           ? 'bg-accent text-accent-text shadow-sm'
                           : 'text-text-muted hover:text-text'
                         }`}
@@ -924,7 +924,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer"
+                  className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer"
                 >
                   記帳する
                 </button>
@@ -1140,7 +1140,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer"
+                  className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer"
                 >
                   {showAddModal ? '登録する' : '保存する'}
                 </button>

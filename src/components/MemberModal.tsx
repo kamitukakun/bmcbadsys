@@ -310,7 +310,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
             </button>
             <button
               type="submit"
-              className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer"
+              className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer"
             >
               {initialMember ? '保存する' : '登録する'}
             </button>

@@ -242,7 +242,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
               <button 
                 type="button"
                 onClick={handleConfirmTemplate}
-                className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer"
+                className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer"
               >
                 適用する
               </button>
@@ -324,7 +324,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
               </button>
               <button
                 onClick={handleSaveBudget}
-                className="px-4 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
+                className="px-4 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs sm:text-sm rounded-xl transition-all active:scale-[0.98] shadow-md flex items-center gap-1.5 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>予算設定を保存</span>

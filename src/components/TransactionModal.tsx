@@ -141,7 +141,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             <button
               type="button"
               onClick={() => handleTypeChange('expense')}
-              className={`py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
+              className={`py-2.5 rounded-xl font-bold text-xs transition-all active:scale-[0.98] cursor-pointer ${
                 type === 'expense'
                   ? 'bg-rose-500 text-white shadow-md'
                   : 'text-text-muted hover:text-text'
@@ -152,7 +152,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             <button
               type="button"
               onClick={() => handleTypeChange('income')}
-              className={`py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
+              className={`py-2.5 rounded-xl font-bold text-xs transition-all active:scale-[0.98] cursor-pointer ${
                 type === 'income'
                   ? 'bg-accent text-accent-text shadow-md font-black'
                   : 'text-text-muted hover:text-text'
@@ -349,7 +349,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             </button>
             <button
               type="submit"
-              className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer"
+              className="flex-1 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl shadow-md transition-all active:scale-[0.98] cursor-pointer"
             >
               {initialTransaction ? '保存する' : '記帳する'}
             </button>

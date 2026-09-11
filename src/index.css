@@ -94,6 +94,33 @@
   --scrollbar-track: #121420;
 }
 
+/* ピクセルアート・ライト (レトロゲーム調のライトモード。ヘッダーはブランド一貫性のためダーク配色を維持) */
+:root[data-theme="pixel_light"],
+:root.theme-pixel_light {
+  --color-bg: #eef1f8;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #eef1f8;
+  --color-surface-muted: #e2e6f2;
+  --color-surface-hover: #e2e6f2;
+  --color-border: #c7cfe6;
+  --color-border-subtle: #e2e6f2;
+  --color-text: #12152a;            /* コントラスト比 15.9:1 */
+  --color-text-muted: #3f4568;      /* コントラスト比 8.2:1 */
+  --color-text-subtle: #52577c;     /* コントラスト比 6.2:1 (WCAG AA適合) */
+  --color-accent: #15803d;          /* 白背景でコントラスト比 5.0:1 */
+  --color-accent-hover: #166534;    /* 白背景でコントラスト比 7.1:1 */
+  --color-accent-text: #ffffff;
+  --color-modal-overlay: rgba(18, 21, 42, 0.45);
+
+  --color-header-bg: #151828;
+  --color-header-border: #2d3352;
+  --color-header-text: #f1f5f9;
+  --color-header-text-muted: #94a3b8;
+
+  --scrollbar-thumb: #a8b0d6;
+  --scrollbar-track: #e2e6f2;
+}
+
 /* ==========================================================================
    Tailwind CSS v4 Theme Token Extension
    ========================================================================== */
@@ -446,6 +473,162 @@ body.theme-pixel ::-webkit-scrollbar-corner {
 }
 
 /* ==========================================================================
+   Theme: Pixel Art Light (上記ピクセルアートのライトモード版。
+   ドット感・角丸0・押下時の位置ズレ演出などの「らしさ」はダーク版と共通のまま、
+   配色のみ白背景・WCAG AA基準でコントラスト再設計)
+   ========================================================================== */
+.theme-pixel_light,
+body.theme-pixel_light,
+html.theme-pixel_light {
+  font-family: 'DotGothic16', monospace, sans-serif !important;
+  background-color: #eef1f8 !important;
+  color: #12152a !important;
+  letter-spacing: 0.03em;
+  scrollbar-width: auto !important;
+  scrollbar-color: #a8b0d6 #e2e6f2 !important;
+}
+
+.theme-pixel_light *,
+body.theme-pixel_light * {
+  font-family: 'DotGothic16', monospace, sans-serif !important;
+  border-radius: 0px !important;
+  text-shadow: none !important;
+  scrollbar-width: auto !important;
+  scrollbar-color: #a8b0d6 #e2e6f2 !important;
+}
+
+.theme-pixel_light ::-webkit-scrollbar,
+body.theme-pixel_light ::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.theme-pixel_light ::-webkit-scrollbar-track,
+body.theme-pixel_light ::-webkit-scrollbar-track {
+  background: #e2e6f2 !important;
+  border: 1px solid #c7cfe6 !important;
+}
+
+.theme-pixel_light ::-webkit-scrollbar-thumb,
+body.theme-pixel_light ::-webkit-scrollbar-thumb {
+  background: #a8b0d6 !important;
+  border: 2px solid #eef1f8 !important;
+  border-radius: 0px !important;
+  box-shadow: 1px 1px 0px rgba(18, 21, 42, 0.35) !important;
+}
+
+.theme-pixel_light ::-webkit-scrollbar-thumb:hover,
+body.theme-pixel_light ::-webkit-scrollbar-thumb:hover {
+  background: #8f98c9 !important;
+}
+
+.theme-pixel_light ::-webkit-scrollbar-thumb:active,
+body.theme-pixel_light ::-webkit-scrollbar-thumb:active {
+  background: #767fbb !important;
+}
+
+.theme-pixel_light ::-webkit-scrollbar-corner,
+body.theme-pixel_light ::-webkit-scrollbar-corner {
+  background: #eef1f8 !important;
+  border: 1px solid #c7cfe6 !important;
+}
+
+.theme-pixel_light .bg-slate-950,
+.theme-pixel_light .bg-surface-subtle {
+  background-color: #eef1f8 !important;
+}
+
+.theme-pixel_light .bg-slate-900,
+.theme-pixel_light .bg-surface {
+  background-color: #ffffff !important;
+  border: 2px solid #c7cfe6 !important;
+  box-shadow: 3px 3px 0px rgba(18, 21, 42, 0.18) !important;
+}
+
+.theme-pixel_light .bg-slate-900\/50,
+.theme-pixel_light .bg-slate-900\/60,
+.theme-pixel_light .bg-slate-900\/80,
+.theme-pixel_light .bg-slate-950\/80,
+.theme-pixel_light .bg-slate-950\/90,
+.theme-pixel_light .bg-surface\/60,
+.theme-pixel_light .bg-surface\/95 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.theme-pixel_light .bg-slate-800,
+.theme-pixel_light .bg-surface-hover,
+.theme-pixel_light .bg-surface-muted {
+  background-color: #e2e6f2 !important;
+  border: 1px solid #c7cfe6 !important;
+}
+
+.theme-pixel_light .border-slate-800,
+.theme-pixel_light .border-slate-700,
+.theme-pixel_light .border-border {
+  border-color: #c7cfe6 !important;
+}
+
+.theme-pixel_light .divide-slate-800 > * + * {
+  border-color: #d7dcee !important;
+}
+
+.theme-pixel_light button,
+.theme-pixel_light .cursor-pointer {
+  border-radius: 0px !important;
+  transition: transform 0.05s, box-shadow 0.05s !important;
+}
+
+.theme-pixel_light button:active,
+.theme-pixel_light .cursor-pointer:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 1px 1px 0px rgba(18, 21, 42, 0.35) !important;
+}
+
+.theme-pixel_light .bg-emerald-400 {
+  background-color: #15803d !important;
+  color: #ffffff !important;
+  border: 2px solid #166534 !important;
+  box-shadow: 3px 3px 0px rgba(18, 21, 42, 0.25) !important;
+  font-weight: bold;
+}
+
+.theme-pixel_light .bg-emerald-400:hover {
+  background-color: #16a34a !important;
+}
+
+.theme-pixel_light .text-emerald-400 {
+  color: #15803d !important; /* 白背景でコントラスト比 5.0:1 */
+}
+
+.theme-pixel_light .text-rose-400 {
+  color: #e11d48 !important; /* 白背景でコントラスト比 4.7:1 */
+}
+
+.theme-pixel_light .text-amber-400 {
+  color: #b45309 !important; /* 白背景でコントラスト比 5.0:1 */
+}
+
+.theme-pixel_light .text-blue-400 {
+  color: #1d4ed8 !important; /* 白背景でコントラスト比 5.4:1 */
+}
+
+.theme-pixel_light input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.theme-pixel_light select,
+.theme-pixel_light textarea {
+  background-color: #ffffff !important;
+  border: 2px solid #c7cfe6 !important;
+  color: #12152a !important;
+  box-shadow: inset 2px 2px 0px rgba(18, 21, 42, 0.08) !important;
+}
+
+.theme-pixel_light input:focus,
+.theme-pixel_light select:focus,
+.theme-pixel_light textarea:focus {
+  border-color: #15803d !important;
+  box-shadow: inset 2px 2px 0px rgba(18, 21, 42, 0.08), 0 0 0 1px #15803d !important;
+}
+
+/* ==========================================================================
    Print Rules
    ========================================================================== */
 @media print {
@@ -496,6 +679,49 @@ button {
     font-size: 11px !important;
     font-weight: 700 !important;
     letter-spacing: 0.01em;
+  }
+}
+
+/* ==========================================================================
+   意味のあるアニメーション
+   装飾ではなく「状態が変化したこと」をユーザーに伝えるための最小限の動き。
+   ========================================================================== */
+
+/* モーダル/ダイアログの出現：全画面に既に付与されている animate-fade-in を実体化。
+   「このダイアログが新しく現れた」ことを短く知らせるだけの、進行を妨げない動き。 */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.18s ease-out;
+}
+
+/* 保存完了などの状態切り替え表示に使う、ごく短いフェード */
+@keyframes state-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-state-fade-in {
+  animation: state-fade-in 0.15s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-state-fade-in {
+    animation: none !important;
   }
 }
 

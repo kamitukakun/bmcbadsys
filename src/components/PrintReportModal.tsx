@@ -120,7 +120,7 @@ export const PrintReportModal: React.FC<PrintReportModalProps> = ({
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrint}
-                className="px-4 py-2.5 min-h-[40px] bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl flex items-center gap-2 shadow-md transition-colors cursor-pointer"
+                className="px-4 py-2.5 min-h-[40px] bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl flex items-center gap-2 shadow-md transition-all active:scale-[0.98] cursor-pointer"
               >
                 <Printer className="w-4 h-4" />
                 <span>印刷する (Print / PDF)</span>

@@ -157,7 +157,7 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
         <button
           type="button"
           onClick={onAddMember}
-          className="px-4 py-2.5 text-xs sm:text-sm font-bold text-accent-text bg-accent hover:bg-accent-hover rounded-xl transition-all shadow-md flex items-center gap-2 self-end sm:self-auto cursor-pointer"
+          className="px-4 py-2.5 text-xs sm:text-sm font-bold text-accent-text bg-accent hover:bg-accent-hover rounded-xl transition-all active:scale-[0.98] shadow-md flex items-center gap-2 self-end sm:self-auto cursor-pointer"
         >
           <UserPlus className="w-4 h-4" />
           <span>名簿登録</span>
@@ -516,7 +516,7 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
                                       participationLogs: prev.participationLogs?.map((l, i) => i === idx ? {...l, feePaid: normalizedFee} : l)
                                   } : null);
                                 }}
-                                className="px-3 min-h-[40px] flex items-center justify-center bg-accent hover:bg-accent-hover text-accent-text rounded-xl font-bold cursor-pointer transition-colors"
+                                className="px-3 min-h-[40px] flex items-center justify-center bg-accent hover:bg-accent-hover text-accent-text rounded-xl font-bold cursor-pointer transition-all active:scale-[0.98]"
                               >保存</button>
                               <button
                                 type="button"
