@@ -642,11 +642,11 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
               </div>
 
               {/* Actions */}
-              <div className="flex items-center gap-2 pt-4 mt-3 border-t border-border">
+              <div className="flex items-center gap-2.5 pt-4 mt-3 border-t border-border">
                 <button
                   type="button"
                   onClick={() => openRestockModal(shuttle)}
-                  className="flex-1 py-2.5 bg-accent/15 hover:bg-accent/25 border border-accent/30 text-accent font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="flex-1 py-2.5 min-h-[44px] bg-accent/15 hover:bg-accent/25 border border-accent/30 text-accent font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <ShoppingBag className="w-3.5 h-3.5" />
                   <span>箱買い・入荷記帳</span>
@@ -655,8 +655,9 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setEditModalItem(shuttle)}
-                  className="p-2.5 bg-surface-subtle border border-border hover:border-accent text-text-muted hover:text-text rounded-xl transition-colors cursor-pointer"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-accent text-text-muted hover:text-accent rounded-xl transition-colors cursor-pointer"
                   title="シャトル情報・在庫数を編集"
+                  aria-label="シャトル情報・在庫数を編集"
                 >
                   <Edit3 className="w-4 h-4" />
                 </button>
@@ -664,8 +665,9 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setDeleteConfirmItem(shuttle)}
-                  className="p-2.5 bg-surface-subtle border border-border hover:border-rose-500 text-text-muted hover:text-rose-400 rounded-xl transition-colors cursor-pointer"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-rose-500 text-text-muted hover:text-rose-400 rounded-xl transition-colors cursor-pointer"
                   title="シャトル銘柄を削除"
+                  aria-label="シャトル銘柄を削除"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -687,7 +689,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
               <button
                 type="button"
                 onClick={() => setRestockModalItem(null)}
-                className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
                 aria-label="閉じる"
               >
                 ✕
@@ -940,11 +942,13 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                 <span>{showAddModal ? '新規シャトル銘柄の登録' : 'シャトル情報の編集'}</span>
               </h3>
               <button
+                type="button"
                 onClick={() => {
                   setShowAddModal(false);
                   setEditModalItem(null);
                 }}
-                className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+                aria-label="閉じる"
               >
                 ✕
               </button>

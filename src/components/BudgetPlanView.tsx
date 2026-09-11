@@ -291,7 +291,14 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
               <div className="absolute right-0 mt-2 w-72 bg-surface border border-border rounded-xl p-3 shadow-2xl z-30 space-y-2 animate-fade-in text-xs">
                 <div className="font-bold text-text pb-1 border-b border-border flex justify-between items-center">
                   <span>おすすめ予算テンプレート</span>
-                  <button onClick={() => setShowTemplateMenu(false)} className="text-text-subtle hover:text-text">✕</button>
+                  <button 
+                    type="button"
+                    onClick={() => setShowTemplateMenu(false)} 
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+                    aria-label="閉じる"
+                  >
+                    ✕
+                  </button>
                 </div>
                 {Object.entries(MODEL_BUDGET_TEMPLATES).map(([key, tpl]) => (
                   <button

@@ -289,10 +289,10 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                             <button
                               type="button"
                               onClick={() => handleOpenPayoutModal(debt.key, tx.id)}
-                              className="px-2.5 py-1 bg-amber-400/15 hover:bg-amber-400/30 text-amber-300 hover:text-amber-200 border border-amber-500/40 rounded-xl font-bold text-[11px] cursor-pointer transition-all flex items-center gap-1 shrink-0 active:scale-95"
+                              className="px-3 min-h-[40px] bg-amber-400/15 hover:bg-amber-400/30 text-amber-300 hover:text-amber-200 border border-amber-500/40 rounded-xl font-bold text-xs cursor-pointer transition-all flex items-center justify-center gap-1 shrink-0 active:scale-95"
                               title="この立替のみ個別返済"
                             >
-                              <ArrowUpRight className="w-3 h-3" />
+                              <ArrowUpRight className="w-3.5 h-3.5" />
                               <span>返済</span>
                             </button>
                           </div>
@@ -372,7 +372,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                   <button
                     type="button"
                     onClick={() => handleOpenPayoutModal(tx.payerMemberId || tx.payerName || 'unknown', tx.id)}
-                    className="px-3 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs rounded-xl shadow-sm transition-all flex items-center gap-1 cursor-pointer active:scale-95"
+                    className="px-3 min-h-[40px] bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs rounded-xl shadow-sm transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95"
                     title="この立替のみ返済"
                   >
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -389,7 +389,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                           onDeleteTransaction(tx.id);
                         }
                       }}
-                      className="px-2.5 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 font-bold text-[11px] rounded-xl border border-rose-500/30 transition-all cursor-pointer"
+                      className="px-3 min-h-[40px] bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 font-bold text-xs rounded-xl border border-rose-500/30 transition-all cursor-pointer flex items-center justify-center"
                       title="返済せずに削除（履歴として保存され復元可能）"
                     >
                       削除
@@ -493,7 +493,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                       <button
                         type="button"
                         onClick={() => setReimbToDelete(rb)}
-                        className={`px-2.5 py-1.5 font-bold text-[11px] rounded-xl border transition-all cursor-pointer flex items-center gap-1 ${
+                        className={`px-3 min-h-[40px] font-bold text-xs rounded-xl border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                           isDismissed
                             ? 'bg-amber-400/15 hover:bg-amber-400/30 text-amber-300 border-amber-500/30'
                             : 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border-rose-500/30'
@@ -528,8 +528,10 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                 <span>立替金の返済・精算実行</span>
               </h3>
               <button 
+                type="button"
                 onClick={() => setShowPayoutModal(false)}
-                className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+                aria-label="閉じる"
               >
                 ✕
               </button>
@@ -643,7 +645,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                     required
                     value={payoutDate}
                     onChange={(e) => setPayoutDate(e.target.value)}
-                    className="w-11/12 p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:border-amber-400"
+                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:border-amber-400"
                   />
                 </div>
 

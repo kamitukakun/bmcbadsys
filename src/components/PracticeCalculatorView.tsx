@@ -634,22 +634,24 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setShuttlesUsedCount(prev => Math.max(1, prev - 1))}
-                    className="p-1.5 bg-surface-subtle border border-border hover:border-border text-text rounded-xl transition-colors cursor-pointer"
+                    className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-accent text-text rounded-xl transition-colors cursor-pointer"
                     title="1本減らす"
+                    aria-label="シャトル本数を1本減らす"
                   >
-                    <Minus className="w-3.5 h-3.5" />
+                    <Minus className="w-4 h-4" />
                   </button>
-                  <div className="px-3 py-1 bg-surface-subtle border border-accent/40 rounded-xl text-center min-w-[70px]">
+                  <div className="px-3 py-1.5 bg-surface-subtle border border-accent/40 rounded-xl text-center min-w-[70px] min-h-[44px] flex items-center justify-center">
                     <span className="text-lg font-black text-accent tabular-nums">{shuttlesUsedCount}</span>
                     <span className="text-xs text-text-muted ml-1 font-semibold">本</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setShuttlesUsedCount(prev => prev + 1)}
-                    className="p-1.5 bg-surface-subtle border border-border hover:border-border text-text rounded-xl transition-colors cursor-pointer"
+                    className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-accent text-text rounded-xl transition-colors cursor-pointer"
                     title="1本増やす"
+                    aria-label="シャトル本数を1本増やす"
                   >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Plus className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -752,22 +754,24 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                     <button
                       type="button"
                       onClick={() => setTotalAttendees(prev => Math.max(1, prev - 1))}
-                      className="p-1.5 bg-surface-subtle border border-border hover:border-border text-text rounded-xl transition-colors cursor-pointer"
+                      className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-accent text-text rounded-xl transition-colors cursor-pointer"
                       title="1名減らす"
+                      aria-label="参加人数を1名減らす"
                     >
-                      <Minus className="w-3.5 h-3.5" />
+                      <Minus className="w-4 h-4" />
                     </button>
-                    <div className="px-4 py-1 bg-surface-subtle border border-accent/40 rounded-xl text-center min-w-[70px]">
+                    <div className="px-4 py-1.5 bg-surface-subtle border border-accent/40 rounded-xl text-center min-w-[70px] min-h-[44px] flex items-center justify-center">
                       <span className="text-lg font-black text-accent tabular-nums">{totalAttendees}</span>
                       <span className="text-xs text-text-muted ml-1 font-semibold">名</span>
                     </div>
                     <button
                       type="button"
                       onClick={() => setTotalAttendees(prev => prev + 1)}
-                      className="p-1.5 bg-surface-subtle border border-border hover:border-border text-text rounded-xl transition-colors cursor-pointer"
+                      className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-accent text-text rounded-xl transition-colors cursor-pointer"
                       title="1名増やす"
+                      aria-label="参加人数を1名増やす"
                     >
-                      <Plus className="w-3.5 h-3.5" />
+                      <Plus className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
@@ -1005,7 +1009,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-11/12 p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:border-accent"
+                  className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:border-accent"
                 />
               </div>
               <div className="sm:col-span-2">

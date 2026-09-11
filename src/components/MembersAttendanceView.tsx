@@ -353,7 +353,7 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
                       </div>
                       <a 
                         href={`tel:${member.emergencyContact.phone}`}
-                        className="text-text-muted hover:text-accent font-semibold tabular-nums ml-1"
+                        className="text-text-muted hover:text-accent font-semibold tabular-nums ml-1 px-2 py-2 min-h-[36px] flex items-center rounded-lg hover:bg-surface-hover transition-colors"
                       >
                         {member.emergencyContact.phone}
                       </a>
@@ -379,11 +379,11 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-2 pt-4 mt-3 border-t border-border">
+              <div className="flex items-center gap-2.5 pt-4 mt-3 border-t border-border">
                 <button
                   type="button"
                   onClick={() => setSelectedMemberDetail(member)}
-                  className="flex-1 py-2 bg-surface-subtle hover:bg-surface-hover border border-border text-text font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="flex-1 py-2 min-h-[44px] bg-surface-subtle hover:bg-surface-hover border border-border text-text font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Clock className="w-3.5 h-3.5 text-accent" />
                   <span>参加・集金履歴 ({member.totalEventsCount}件)</span>
@@ -392,8 +392,9 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
                 <button
                   type="button"
                   onClick={() => onEditMember(member)}
-                  className="p-2 bg-surface-subtle border border-border hover:border-accent text-text-muted rounded-xl transition-colors cursor-pointer"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-accent text-text-muted hover:text-accent rounded-xl transition-colors cursor-pointer"
                   title="名簿情報を編集"
+                  aria-label="名簿情報を編集"
                 >
                   <Edit3 className="w-4 h-4" />
                 </button>
@@ -401,8 +402,9 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setMemberToDelete(member)}
-                  className="p-2 bg-surface-subtle border border-border hover:border-rose-900 text-text-muted hover:text-rose-400 rounded-xl transition-colors cursor-pointer"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-rose-900 text-text-muted hover:text-rose-400 rounded-xl transition-colors cursor-pointer"
                   title="名簿を削除"
+                  aria-label="名簿を削除"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -426,8 +428,10 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
                 </div>
               </div>
               <button
+                type="button"
                 onClick={() => setSelectedMemberDetail(null)}
-                className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+                aria-label="閉じる"
               >
                 ✕
               </button>
@@ -497,8 +501,9 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
                               className="w-full p-1.5 bg-surface border border-border rounded-xl text-text font-bold"
                             />
                           </div>
-                          <div className="flex gap-1">
+                          <div className="flex gap-1.5">
                             <button
+                              type="button"
                               onClick={() => {
                                 const normalizedFee = typeof editFee === 'number' ? editFee : 0;
                                 onUpdateParticipation(selectedMemberDetail.id, log.sessionId, normalizedFee);
@@ -508,11 +513,12 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
                                     participationLogs: prev.participationLogs?.map((l, i) => i === idx ? {...l, feePaid: normalizedFee} : l)
                                 } : null);
                               }}
-                              className="px-2 py-1 bg-accent hover:bg-accent-hover text-accent-text rounded-xl font-bold cursor-pointer"
+                              className="px-3 min-h-[40px] flex items-center justify-center bg-accent hover:bg-accent-hover text-accent-text rounded-xl font-bold cursor-pointer transition-colors"
                             >保存</button>
                             <button
+                              type="button"
                               onClick={() => setEditingLogIndex(null)}
-                              className="px-2 py-1 bg-surface-hover text-text rounded-xl font-bold cursor-pointer border border-border"
+                              className="px-3 min-h-[40px] flex items-center justify-center bg-surface-hover text-text rounded-xl font-bold cursor-pointer border border-border transition-colors"
                             >戻る</button>
                           </div>
                         </>
@@ -522,18 +528,24 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
                             <div className="font-bold text-text">{formatDate(log.date)}</div>
                             <div className="text-[11px] text-text-muted">{log.eventName}</div>
                           </div>
-                          <div className="flex items-center gap-3">
-                            <div className="text-right">
+                          <div className="flex items-center gap-1.5 sm:gap-2">
+                            <div className="text-right mr-1">
                               <div className="font-black text-accent tabular-nums">+{formatCurrency(log.feePaid)}</div>
                             </div>
                             <button
+                              type="button"
                               onClick={() => {
                                 setEditingLogIndex(idx);
                                 setEditFee(log.feePaid);
                               }}
-                              className="text-text-muted hover:text-accent cursor-pointer"
-                            ><Edit3 className="w-3.5 h-3.5"/></button>
+                              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-text-muted hover:text-accent hover:bg-surface-hover transition-colors cursor-pointer"
+                              title="参加費を編集"
+                              aria-label="参加費を編集"
+                            >
+                              <Edit3 className="w-3.5 h-3.5"/>
+                            </button>
                             <button
+                              type="button"
                               onClick={() => {
                                 onDeleteParticipation(selectedMemberDetail.id, log.sessionId);
                                 setSelectedMemberDetail(prev => prev ? {
@@ -541,8 +553,12 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
                                     participationLogs: prev.participationLogs?.filter((_, i) => i !== idx)
                                 } : null);
                               }}
-                              className="text-text-muted hover:text-rose-400 cursor-pointer"
-                            ><Trash2 className="w-3.5 h-3.5"/></button>
+                              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-text-muted hover:text-rose-400 hover:bg-surface-hover transition-colors cursor-pointer"
+                              title="参加ログを削除"
+                              aria-label="参加ログを削除"
+                            >
+                              <Trash2 className="w-3.5 h-3.5"/>
+                            </button>
                           </div>
                         </>
                       )}

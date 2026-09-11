@@ -116,8 +116,10 @@ export const PrintReportModal: React.FC<PrintReportModalProps> = ({
               <span>印刷する (Print / PDF)</span>
             </button>
             <button
+              type="button"
               onClick={onClose}
-              className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+              aria-label="閉じる"
             >
               ✕
             </button>

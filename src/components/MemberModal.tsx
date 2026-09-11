@@ -132,7 +132,8 @@ export const MemberModal: React.FC<MemberModalProps> = ({
           <button 
             type="button"
             onClick={onClose} 
-            className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+            aria-label="閉じる"
           >
             ✕
           </button>
@@ -142,7 +143,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
           <div className="p-5 sm:p-6 space-y-4 text-xs overflow-y-auto flex-1">
           
           {/* Basic Info */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block font-bold text-text mb-1">氏名 *</label>
               <input
@@ -195,7 +196,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-11/12 p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
               />
             </div>
           </div>
@@ -220,7 +221,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
           </div>
 
           {/* Contact (Phone / Email) */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="block font-bold text-text mb-1">電話番号</label>
               <input
@@ -262,7 +263,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
               <span>緊急連絡先の設定</span>
             </div>
 
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <div className="col-span-1">
                 <label className="block text-text-muted font-bold mb-1 text-[11px]">氏名</label>
                 <input

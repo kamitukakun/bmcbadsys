@@ -126,7 +126,8 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+            aria-label="閉じる"
           >
             ✕
           </button>
@@ -230,7 +231,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-11/12 p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
               />
             </div>
 

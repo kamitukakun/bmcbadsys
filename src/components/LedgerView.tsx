@@ -387,22 +387,24 @@ export const LedgerView: React.FC<LedgerViewProps> = ({
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <button
                         type="button"
                         onClick={() => onEditTransaction(tx)}
-                        className="p-2 bg-surface-subtle border border-border hover:border-accent/40 text-text-muted rounded-xl transition-colors cursor-pointer"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-accent/40 text-text-muted hover:text-accent rounded-xl transition-colors cursor-pointer"
                         title="編集"
+                        aria-label="出納記録を編集"
                       >
-                        <Edit3 className="w-3.5 h-3.5" />
+                        <Edit3 className="w-4 h-4" />
                       </button>
                       <button
                         type="button"
                         onClick={() => setTxToDelete(tx)}
-                        className="p-2 bg-surface-subtle border border-border hover:border-rose-500/50 text-text-muted hover:text-rose-400 rounded-xl transition-colors cursor-pointer"
+                        className="min-w-[44px] min-h-[44px] flex items-center justify-center bg-surface-subtle border border-border hover:border-rose-500/50 text-text-muted hover:text-rose-400 rounded-xl transition-colors cursor-pointer"
                         title="出納記録を削除"
+                        aria-label="出納記録を削除"
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   </div>

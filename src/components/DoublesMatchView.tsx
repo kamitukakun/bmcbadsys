@@ -1916,10 +1916,11 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                           e.stopPropagation();
                           handleMarkPlayerLeft(p.memberId);
                         }}
-                        className="p-1 hover:bg-surface-hover rounded-xl text-text-muted hover:text-rose-400"
+                        className="w-9 h-9 min-w-[36px] min-h-[36px] flex items-center justify-center hover:bg-rose-500/20 rounded-xl text-text-muted hover:text-rose-400 transition-colors cursor-pointer"
                         title="途中退出（早退）として記録"
+                        aria-label="途中退出（早退）として記録"
                       >
-                        <LogOut className="w-3 h-3" />
+                        <LogOut className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   );
@@ -1952,7 +1953,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                     },
                   });
                 }}
-                className="flex-1 min-h-[48px] py-2.5 bg-surface-subtle hover:bg-surface-hover text-text border border-border rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-all"
+                className="flex-1 min-h-[48px] py-2.5 mb-3 bg-surface-subtle hover:bg-surface-hover text-text border border-border rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer transition-all"
               >
                 <Users className="w-4 h-4" />
                 <span>プレイヤー管理</span>
@@ -1963,7 +1964,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                 type="button"
                 onClick={handleGenerateNextRound}
                 disabled={players.filter(p => (p.status === 'joined' || p.status === 'late') && !p.isResting).length < 4}
-                className={`flex-2 min-h-[48px] py-2.5 mb-3 rounded-xl font-black text-xs flex items-center justify-center gap-1.5 shadow-xl transition-all ${
+                className={`flex-[2] min-h-[48px] py-2.5 mb-3 rounded-xl font-black text-xs flex items-center justify-center gap-1.5 shadow-xl transition-all ${
                   players.filter(p => (p.status === 'joined' || p.status === 'late') && !p.isResting).length < 4
                     ? 'bg-surface-hover text-text-muted cursor-not-allowed opacity-60 border border-border'
                     : isAllMatchesCompleted
@@ -2020,7 +2021,8 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
               <button
                 type="button"
                 onClick={() => setShowAddVisitorModal(false)}
-                className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+                aria-label="閉じる"
               >
                 ✕
               </button>
@@ -2122,7 +2124,8 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
               <button
                 type="button"
                 onClick={() => setShowLateJoinModal(false)}
-                className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+                aria-label="閉じる"
               >
                 ✕
               </button>
@@ -2195,7 +2198,8 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
               <button
                 type="button"
                 onClick={() => setShowConfirmToSessionModal(false)}
-                className="text-text-muted hover:text-text text-xs font-bold cursor-pointer"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+                aria-label="閉じる"
               >
                 ✕
               </button>
