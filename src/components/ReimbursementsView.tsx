@@ -466,7 +466,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                     <div className="text-text-muted text-[11px] font-medium">{rb.notes}</div>
                   </div>
 
-                  <div className="text-right shrink-0 flex items-center gap-3">
+                  <div className="text-right shrink-0 flex items-center justify-end gap-3">
                     <div>
                       {isDismissed ? (
                         <>

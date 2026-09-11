@@ -1003,16 +1003,16 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
           {/* Notes & Date */}
           <div className="bg-surface border border-border rounded-2xl p-5 shadow-md space-y-3 text-xs">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div>
+              <div className="min-w-0">
                 <label className="block font-bold text-text-muted mb-1">開催日</label>
                 <input
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-semibold sm:leading-normal focus:outline-none focus:border-accent"
+                  className="w-full min-w-0 py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-semibold sm:leading-normal focus:outline-none focus:border-accent"
                 />
               </div>
-              <div className="sm:col-span-2">
+              <div className="sm:col-span-2 min-w-0">
                 <label className="block font-bold text-text-muted mb-1">会場名</label>
                 <input
                   type="text"
