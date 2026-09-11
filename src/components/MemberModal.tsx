@@ -116,7 +116,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
       <div className="bg-surface rounded-2xl max-w-lg w-full shadow-2xl border border-border flex flex-col max-h-[85vh] my-auto relative">
         
         <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6 shrink-0">
-          <h3 className="text-base font-bold text-text flex items-center gap-2">
+          <h3 className="text-sm sm:text-base font-bold text-text flex items-center gap-2">
             {initialMember ? (
               <>
                 <Edit3 className="w-4 h-4 text-accent" />
@@ -140,7 +140,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
-          <div className="p-5 sm:p-6 space-y-4 text-xs overflow-y-auto flex-1">
+          <div className="p-5 sm:p-6 space-y-3 sm:space-y-4 text-xs overflow-y-auto flex-1">
           
           {/* Basic Info */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -152,7 +152,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
                 placeholder="例: 加美山 太郎"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
               />
             </div>
             <div>
@@ -162,7 +162,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
                 placeholder="例: カミヤマ タロウ"
                 value={kana}
                 onChange={(e) => setKana(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
               />
             </div>
           </div>
@@ -174,7 +174,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
               <select
                 value={gender}
                 onChange={(e) => setGender(e.target.value as Gender)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
               >
                 <option value="male">男性</option>
                 <option value="female">女性</option>
@@ -196,7 +196,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
               />
             </div>
           </div>
@@ -208,7 +208,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value as MemberRole)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
               >
                 <option value="leader">代表</option>
                 <option value="officer">役員・幹事</option>
@@ -229,7 +229,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
                 placeholder="090-0000-0000"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
               />
             </div>
             <div>
@@ -239,7 +239,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
               />
             </div>
           </div>
@@ -252,7 +252,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
               placeholder="例: 体育館予約担当、怪我療養中など"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+              className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
             />
           </div>
 
@@ -270,7 +270,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
                   type="text"
                   value={emName}
                   onChange={(e) => setEmName(e.target.value)}
-                  className="w-full p-2 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-rose-400 text-xs"
+                  className="w-full p-2 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-rose-400 text-xs"
                 />
               </div>
 
@@ -281,7 +281,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
                   placeholder="例: 配偶者, 母, 父"
                   value={emRelation}
                   onChange={(e) => setEmRelation(e.target.value)}
-                  className="w-full p-2 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-rose-400 text-xs"
+                  className="w-full p-2 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-rose-400 text-xs"
                 />
               </div>
 
@@ -292,7 +292,7 @@ export const MemberModal: React.FC<MemberModalProps> = ({
                   placeholder="090-xxxx-xxxx"
                   value={emPhone}
                   onChange={(e) => setEmPhone(e.target.value)}
-                  className="w-full p-2 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-rose-400 text-xs"
+                  className="w-full p-2 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-rose-400 text-xs"
                 />
               </div>
             </div>

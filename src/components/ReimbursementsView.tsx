@@ -194,7 +194,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
             <div className="p-2 bg-amber-500/15 border border-amber-500/30 rounded-full text-amber-400">
               <CircleDollarSign className="w-5 h-5" />
             </div>
-            <h2 className="text-xl font-bold text-text tracking-tight">
+            <h2 className="text-sm sm:text-xl font-bold text-text tracking-tight">
               立替金・借入精算管理
             </h2>
           </div>
@@ -250,7 +250,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="text-[10px] font-bold uppercase tracking-wider text-amber-400">立替者</div>
-                      <h4 className="text-base font-bold text-text">{debt.name}</h4>
+                      <h4 className="text-sm sm:text-base font-bold text-text">{debt.name}</h4>
                     </div>
                     <span className="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-full border border-amber-500/30">
                       {debt.txList.length} 件 未精算
@@ -259,7 +259,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
 
                   <div className="p-3 bg-surface-subtle rounded-xl border border-border space-y-1">
                     <div className="text-[10px] text-text-muted font-semibold">クラブから返済すべき金額 (未精算合計)</div>
-                    <div className="text-2xl font-black text-amber-400 tabular-nums">
+                    <div className="text-xl sm:text-2xl font-black text-amber-400 tabular-nums">
                       {formatCurrency(debt.totalDebt)}
                     </div>
                   </div>
@@ -523,7 +523,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-fade-in">
           <div className="bg-surface border border-border rounded-2xl max-w-md w-full shadow-2xl flex flex-col max-h-[85vh] sm:max-h-[90vh] my-auto overflow-hidden">
             <div className="flex items-center justify-between border-b border-border px-5 py-4 shrink-0 bg-surface">
-              <h3 className="text-base font-bold text-text flex items-center gap-2">
+              <h3 className="text-sm sm:text-base font-bold text-text flex items-center gap-2">
                 <CircleDollarSign className="w-5 h-5 text-amber-400" />
                 <span>立替金の返済・精算実行</span>
               </h3>
@@ -538,7 +538,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
             </div>
 
             <form onSubmit={handleConfirmPayout} className="flex flex-col flex-1 overflow-hidden min-h-0">
-              <div className="p-5 sm:p-6 space-y-4 text-xs overflow-y-auto flex-1 min-h-0">
+              <div className="p-5 sm:p-6 space-y-3 sm:space-y-4 text-xs overflow-y-auto flex-1 min-h-0">
                 {/* Mode Selector (Only if multiple unsettled transactions) */}
                 {selectedDebtData.txList.length > 1 && (
                   <div>
@@ -585,7 +585,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                     <select
                       value={selectedSingleTx?.id || ''}
                       onChange={(e) => setSelectedTxId(e.target.value)}
-                      className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-amber-400"
+                      className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-amber-400"
                     >
                       {selectedDebtData.txList.map(tx => (
                         <option key={tx.id} value={tx.id}>
@@ -645,7 +645,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                     required
                     value={payoutDate}
                     onChange={(e) => setPayoutDate(e.target.value)}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:border-amber-400"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-semibold sm:leading-normal focus:outline-none focus:border-amber-400"
                   />
                 </div>
 
@@ -654,7 +654,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                   <select
                     value={payoutMethod}
                     onChange={(e) => setPayoutMethod(e.target.value as PaymentMethod)}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-amber-400"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-amber-400"
                   >
                     <option value="cash">現金</option>
                     <option value="paypay">PayPay送金</option>
@@ -673,7 +673,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                       : "例: PayPayにて送金返済完了"}
                     value={payoutNotes}
                     onChange={(e) => setPayoutNotes(e.target.value)}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text placeholder-text-muted focus:outline-none focus:border-amber-400"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text placeholder-text-muted focus:outline-none focus:border-amber-400"
                   />
                 </div>
 
@@ -890,7 +890,7 @@ export const ReimbursementsView: React.FC<ReimbursementsViewProps> = ({
                 placeholder="例: 自己負担のため精算不要、誤記取消など"
                 value={dismissReason}
                 onChange={(e) => setDismissReason(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text placeholder-text-muted text-xs focus:outline-none focus:border-rose-400"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text placeholder-text-muted text-xs focus:outline-none focus:border-rose-400"
               />
             </div>
 

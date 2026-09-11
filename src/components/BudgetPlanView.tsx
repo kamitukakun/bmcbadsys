@@ -256,7 +256,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
             <span className="p-2 bg-accent/10 text-accent rounded-full border border-accent/20">
               <Target className="w-5 h-5" />
             </span>
-            <h2 className="text-xl font-black text-text tracking-tight">
+            <h2 className="text-sm sm:text-xl font-black text-text tracking-tight">
               年間予算計画
             </h2>
           </div>
@@ -270,7 +270,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
           <select
             value={fiscalYear}
             onChange={(e) => setFiscalYear(Number(e.target.value))}
-            className="px-3.5 py-2.5 bg-surface-subtle border border-border rounded-xl text-xs sm:text-sm font-bold text-text shadow-md focus:outline-none focus:ring-2 focus:ring-accent/50 cursor-pointer"
+            className="px-3.5 py-2.5 bg-surface-subtle border border-border rounded-xl text-xs sm:text-sm font-medium leading-snug sm:font-bold sm:leading-normal text-text shadow-md focus:outline-none focus:ring-2 focus:ring-accent/50 cursor-pointer"
           >
             <option value={2026} className="bg-surface">2026年度 (令和8年度)</option>
             <option value={2025} className="bg-surface">2025年度 (令和7年度)</option>
@@ -288,7 +288,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
             </button>
 
             {showTemplateMenu && (
-              <div className="absolute right-0 mt-2 w-72 bg-surface border border-border rounded-xl p-3 shadow-2xl z-30 space-y-2 animate-fade-in text-xs">
+              <div className="absolute right-0 mt-2 w-72 max-w-[calc(100vw-2rem)] bg-surface border border-border rounded-xl p-3 shadow-2xl z-30 space-y-2 animate-fade-in text-xs">
                 <div className="font-bold text-text pb-1 border-b border-border flex justify-between items-center">
                   <span>おすすめ予算テンプレート</span>
                   <button 
@@ -354,7 +354,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
                 <TrendingUp className="w-3.5 h-3.5" />
               </span>
             </div>
-            <div className="text-2xl font-black text-text mt-2 tabular-nums">
+            <div className="text-xl sm:text-2xl font-black text-text mt-2 tabular-nums">
               {formatCurrency(totalActualIncome)}
             </div>
             <div className="text-xs text-text-muted mt-1 font-medium">
@@ -385,7 +385,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
                 <TrendingDown className="w-3.5 h-3.5" />
               </span>
             </div>
-            <div className="text-2xl font-black text-text mt-2 tabular-nums">
+            <div className="text-xl sm:text-2xl font-black text-text mt-2 tabular-nums">
               {formatCurrency(totalActualExpense)}
             </div>
             <div className="text-xs text-text-muted mt-1 font-medium">
@@ -420,7 +420,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
                 <DollarSign className="w-3.5 h-3.5" />
               </span>
             </div>
-            <div className={`text-2xl font-black mt-2 tabular-nums ${totalActualExpense > totalPlannedExpense ? 'text-rose-400' : 'text-sky-400'}`}>
+            <div className={`text-xl sm:text-2xl font-black mt-2 tabular-nums ${totalActualExpense > totalPlannedExpense ? 'text-rose-400' : 'text-sky-400'}`}>
               {formatCurrency(remainingExpenseBudget)}
             </div>
             <div className="text-xs text-text-muted mt-1 font-medium">
@@ -449,7 +449,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
                 <Activity className="w-3.5 h-3.5" />
               </span>
             </div>
-            <div className={`text-2xl font-black mt-2 tabular-nums ${actualNetBalance >= 0 ? 'text-accent' : 'text-rose-400'}`}>
+            <div className={`text-xl sm:text-2xl font-black mt-2 tabular-nums ${actualNetBalance >= 0 ? 'text-accent' : 'text-rose-400'}`}>
               {actualNetBalance >= 0 ? `+${formatCurrency(actualNetBalance)}` : formatCurrency(actualNetBalance)}
             </div>
             <div className="text-xs text-text-muted mt-1 font-medium">
@@ -526,7 +526,8 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
             </span>
           </div>
 
-          <div className="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+          {/* Desktop/Tablet Table (sm以上) */}
+          <div className="hidden sm:block overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
             <table className="w-full text-left text-xs border-collapse min-w-[660px]">
               <thead>
                 <tr className="border-b border-border text-xs font-bold text-text-muted uppercase tracking-wider">
@@ -577,7 +578,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
                               }
                             }}
                             placeholder="0"
-                            className="w-24 sm:w-28 p-1.5 bg-surface-subtle border border-border rounded-xl text-right text-text font-bold focus:outline-none focus:border-accent"
+                            className="w-24 sm:w-28 p-1.5 bg-surface-subtle border border-border rounded-xl text-right text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
                           />
                         ) : (
                           <span className="text-text">{formatCurrency(planned)}</span>
@@ -634,6 +635,112 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
               </tbody>
             </table>
           </div>
+
+          {/* Mobile Card List (sm未満) */}
+          <div className="sm:hidden space-y-3">
+            {ALLOWED_EXPENSE_KEYS.map((key) => {
+              const meta = EXPENSE_CATEGORIES[key as keyof typeof EXPENSE_CATEGORIES];
+              if (!meta) return null;
+              const planned = isEditing ? (typeof editExpense[key] === 'number' ? editExpense[key] : 0) : (currentPlan.expenseBudgets?.[key]?.planned || 0);
+              const actual = actualExpenseByCategory[key] || 0;
+              const diff = planned - actual;
+              const rate = planned > 0 ? Math.round((actual / planned) * 100) : 0;
+              const isOver = actual > planned && planned > 0;
+
+              return (
+                <div key={key} className="p-3.5 bg-surface-subtle border border-border rounded-xl space-y-3">
+                  {/* 上段: 費目名・アイコン・執行率のバッジ */}
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <CategoryIcon iconName={meta.iconName || meta.icon} className="w-4 h-4 text-rose-400 shrink-0" />
+                      <div className="min-w-0">
+                        <div className="font-bold text-text text-sm truncate">{meta.label}</div>
+                        <div className="text-[10px] text-text-muted truncate">{meta.description}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className={`text-xs font-black tabular-nums ${isOver ? 'text-rose-400' : rate > 80 ? 'text-amber-400' : 'text-accent'}`}>
+                        {rate}%
+                      </span>
+                      <div className="w-12 bg-surface h-1.5 rounded-full overflow-hidden border border-border">
+                        <div 
+                          className={`h-full rounded-full ${isOver ? 'bg-rose-500' : rate > 80 ? 'bg-amber-400' : 'bg-accent'}`}
+                          style={{ width: `${Math.min(100, rate)}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 中段: 年間予算額 / 実績額 / 差額 の3列 */}
+                  <div className="grid grid-cols-3 gap-2 p-2.5 bg-surface rounded-lg border border-border-subtle text-xs">
+                    <div>
+                      <div className="text-[10px] text-text-muted font-semibold">年間予算</div>
+                      {isEditing ? (
+                        <input
+                          type="number"
+                          min="0"
+                          step="1000"
+                          value={editExpense[key] ?? ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            if (val === '') {
+                              setEditExpense({ ...editExpense, [key]: '' });
+                            } else {
+                              const num = Number(val);
+                              setEditExpense({ ...editExpense, [key]: isNaN(num) ? '' : Math.max(0, num) });
+                            }
+                          }}
+                          placeholder="0"
+                          className="w-full mt-1 p-1 bg-surface-subtle border border-border rounded-lg text-right text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent text-xs"
+                        />
+                      ) : (
+                        <div className="font-bold text-text tabular-nums mt-0.5">{formatCurrency(planned)}</div>
+                      )}
+                    </div>
+
+                    <div>
+                      <div className="text-[10px] text-text-muted font-semibold">執行実績</div>
+                      <div className="font-bold text-text tabular-nums mt-0.5">{formatCurrency(actual)}</div>
+                    </div>
+
+                    <div>
+                      <div className="text-[10px] text-text-muted font-semibold">差額(残予算)</div>
+                      <div className={`font-bold tabular-nums mt-0.5 ${diff < 0 ? 'text-rose-400' : 'text-text-muted'}`}>
+                        {diff < 0 ? `-${formatCurrency(Math.abs(diff))}` : formatCurrency(diff)}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 下段: ステータスバッジ & 備考 */}
+                  <div className="flex items-center justify-between text-xs pt-1 border-t border-border-subtle">
+                    <span className="text-[10px] text-text-muted font-semibold">ステータス:</span>
+                    <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                      {isOver ? (
+                        <span className="px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 font-bold text-[10px]">
+                          ⚠️ 予算超過
+                        </span>
+                      ) : rate >= 80 ? (
+                        <span className="px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-bold text-[10px]">
+                          残り僅か
+                        </span>
+                      ) : planned > 0 ? (
+                        <span className="px-2 py-0.5 rounded-full bg-accent/15 border border-accent/30 text-accent font-bold text-[10px]">
+                          順調執行
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded-full bg-surface-muted border border-border text-text-muted font-bold text-[10px]">
+                          未設定
+                        </span>
+                      )}
+                      {currentPlan.expenseBudgets?.[key]?.notes && (
+                        <span className="text-text-muted text-[10px]">({currentPlan.expenseBudgets[key].notes})</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 
@@ -651,7 +758,8 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
             </span>
           </div>
 
-          <div className="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+          {/* Desktop/Tablet Table (sm以上) */}
+          <div className="hidden sm:block overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
             <table className="w-full text-left text-xs border-collapse min-w-[660px]">
               <thead>
                 <tr className="border-b border-border text-xs font-bold text-text-muted uppercase tracking-wider">
@@ -701,7 +809,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
                               }
                             }}
                             placeholder="0"
-                            className="w-24 sm:w-28 p-1.5 bg-surface-subtle border border-border rounded-xl text-right text-text font-bold focus:outline-none focus:border-accent"
+                            className="w-24 sm:w-28 p-1.5 bg-surface-subtle border border-border rounded-xl text-right text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
                           />
                         ) : (
                           <span className="text-text">{formatCurrency(planned)}</span>
@@ -754,12 +862,113 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
               </tbody>
             </table>
           </div>
+
+          {/* Mobile Card List (sm未満) */}
+          <div className="sm:hidden space-y-3">
+            {ALLOWED_INCOME_KEYS.map((key) => {
+              const meta = INCOME_CATEGORIES[key as keyof typeof INCOME_CATEGORIES];
+              if (!meta) return null;
+              const planned = isEditing ? (typeof editIncome[key] === 'number' ? editIncome[key] : 0) : (currentPlan.incomeBudgets?.[key]?.planned || 0);
+              const actual = actualIncomeByCategory[key] || 0;
+              const diff = actual - planned;
+              const rate = planned > 0 ? Math.round((actual / planned) * 100) : 0;
+
+              return (
+                <div key={key} className="p-3.5 bg-surface-subtle border border-border rounded-xl space-y-3">
+                  {/* 上段: 費目名・アイコン・進捗率のバッジ */}
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <CategoryIcon iconName={meta.iconName || meta.icon} className="w-4 h-4 text-sky-400 shrink-0" />
+                      <div className="min-w-0">
+                        <div className="font-bold text-text text-sm truncate">{meta.label}</div>
+                        <div className="text-[10px] text-text-muted truncate">{meta.description}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className={`text-xs font-black tabular-nums ${rate >= 100 ? 'text-accent' : 'text-sky-400'}`}>
+                        {rate}%
+                      </span>
+                      <div className="w-12 bg-surface h-1.5 rounded-full overflow-hidden border border-border">
+                        <div 
+                          className="bg-sky-400 h-full rounded-full"
+                          style={{ width: `${Math.min(100, rate)}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 中段: 年間目標額 / 集金実績 / 差額 の3列 */}
+                  <div className="grid grid-cols-3 gap-2 p-2.5 bg-surface rounded-lg border border-border-subtle text-xs">
+                    <div>
+                      <div className="text-[10px] text-text-muted font-semibold">目標額</div>
+                      {isEditing ? (
+                        <input
+                          type="number"
+                          min="0"
+                          step="1000"
+                          value={editIncome[key] ?? ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            if (val === '') {
+                              setEditIncome({ ...editIncome, [key]: '' });
+                            } else {
+                              const num = Number(val);
+                              setEditIncome({ ...editIncome, [key]: isNaN(num) ? '' : Math.max(0, num) });
+                            }
+                          }}
+                          placeholder="0"
+                          className="w-full mt-1 p-1 bg-surface-subtle border border-border rounded-lg text-right text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent text-xs"
+                        />
+                      ) : (
+                        <div className="font-bold text-text tabular-nums mt-0.5">{formatCurrency(planned)}</div>
+                      )}
+                    </div>
+
+                    <div>
+                      <div className="text-[10px] text-text-muted font-semibold">集金実績</div>
+                      <div className="font-bold text-text tabular-nums mt-0.5">{formatCurrency(actual)}</div>
+                    </div>
+
+                    <div>
+                      <div className="text-[10px] text-text-muted font-semibold">差額(過不足)</div>
+                      <div className={`font-bold tabular-nums mt-0.5 ${diff >= 0 ? 'text-accent' : 'text-text-muted'}`}>
+                        {diff >= 0 ? `+${formatCurrency(diff)}` : `-${formatCurrency(Math.abs(diff))}`}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 下段: ステータスバッジ & 備考 */}
+                  <div className="flex items-center justify-between text-xs pt-1 border-t border-border-subtle">
+                    <span className="text-[10px] text-text-muted font-semibold">ステータス:</span>
+                    <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                      {rate >= 100 ? (
+                        <span className="px-2 py-0.5 rounded-full bg-accent/15 border border-accent/30 text-accent font-bold text-[10px]">
+                          達成済み
+                        </span>
+                      ) : planned > 0 ? (
+                        <span className="px-2 py-0.5 rounded-full bg-sky-500/15 border border-sky-500/30 text-sky-400 font-bold text-[10px]">
+                          集金中 ({rate}%)
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded-full bg-surface-muted border border-border text-text-muted font-bold text-[10px]">
+                          未設定
+                        </span>
+                      )}
+                      {currentPlan.incomeBudgets?.[key]?.notes && (
+                        <span className="text-text-muted text-[10px]">({currentPlan.incomeBudgets[key].notes})</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 
       {/* Monthly Breakdown Tab */}
       {activeTab === 'monthly' && (
-        <div className="bg-surface rounded-2xl border border-border p-6 shadow-md space-y-5">
+        <div className="bg-surface rounded-2xl border border-border p-4 sm:p-6 shadow-md space-y-5">
           <div className="flex items-center justify-between border-b border-border pb-3">
             <div className="flex items-center gap-2">
               <Calendar className="w-5 h-5 text-amber-400" />
@@ -769,22 +978,22 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
             {[4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3].map((month) => {
               const stats = monthlyBreakdown[month] || { income: 0, expense: 0 };
               const net = stats.income - stats.expense;
               const isProfit = net >= 0;
 
               return (
-                <div key={month} className="p-3.5 bg-surface-subtle rounded-xl border border-border space-y-2">
+                <div key={month} className="p-2.5 sm:p-3.5 bg-surface-subtle rounded-xl border border-border space-y-1.5 sm:space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-text">{month}月</span>
-                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isProfit ? 'bg-accent/10 text-accent' : 'bg-rose-500/10 text-rose-400'}`}>
+                    <span className={`text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isProfit ? 'bg-accent/10 text-accent' : 'bg-rose-500/10 text-rose-400'}`}>
                       {isProfit ? '黒字' : '赤字'}
                     </span>
                   </div>
 
-                  <div className="text-[11px] space-y-1">
+                  <div className="text-[10px] sm:text-[11px] space-y-1">
                     <div className="flex justify-between text-text-muted">
                       <span>収入:</span>
                       <span className="text-accent font-bold tabular-nums">{formatCurrency(stats.income)}</span>
@@ -793,7 +1002,7 @@ export const BudgetPlanView: React.FC<BudgetPlanViewProps> = ({
                       <span>支出:</span>
                       <span className="text-rose-400 font-bold tabular-nums">{formatCurrency(stats.expense)}</span>
                     </div>
-                    <div className="pt-1 border-t border-border-subtle flex justify-between font-extrabold text-xs">
+                    <div className="pt-1 border-t border-border-subtle flex justify-between font-extrabold text-[11px] sm:text-xs">
                       <span>収支:</span>
                       <span className={`tabular-nums ${isProfit ? 'text-accent' : 'text-rose-400'}`}>
                         {isProfit ? `+${formatCurrency(net)}` : formatCurrency(net)}

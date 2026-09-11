@@ -88,15 +88,25 @@ export const PrintReportModal: React.FC<PrintReportModalProps> = ({
       <div className="bg-surface rounded-2xl max-w-4xl w-full my-4 p-5 sm:p-7 shadow-2xl border border-border space-y-5">
         
         {/* Top Modal Controls */}
-        <div className="flex items-center justify-between border-b border-border pb-4">
-          <div className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-accent" />
-            <h2 className="text-base font-bold text-text">クラブ収支決算報告書（総会・監査提出用）</h2>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border pb-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <FileText className="w-5 h-5 text-accent shrink-0" />
+              <h2 className="text-sm sm:text-base font-bold text-text">クラブ収支決算報告書（総会・監査提出用）</h2>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="sm:hidden min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer shrink-0 -mr-1"
+              aria-label="閉じる"
+            >
+              ✕
+            </button>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-end flex-wrap gap-2.5">
             <div className="flex items-center gap-2">
-              <label className="text-text-muted text-xs font-bold">対象年度:</label>
+              <label className="text-text-muted text-xs font-bold shrink-0">対象年度:</label>
               <select
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(Number(e.target.value))}
@@ -107,24 +117,24 @@ export const PrintReportModal: React.FC<PrintReportModalProps> = ({
                 ))}
               </select>
             </div>
-            <div className="flex items-center gap-2.5">
-            <button
-              onClick={handlePrint}
-              className="px-4 py-2.5 bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl flex items-center gap-2 shadow-md transition-colors cursor-pointer"
-            >
-              <Printer className="w-4 h-4" />
-              <span>印刷する (Print / PDF)</span>
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
-              aria-label="閉じる"
-            >
-              ✕
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handlePrint}
+                className="px-4 py-2.5 min-h-[40px] bg-accent hover:bg-accent-hover text-accent-text font-bold text-xs rounded-xl flex items-center gap-2 shadow-md transition-colors cursor-pointer"
+              >
+                <Printer className="w-4 h-4" />
+                <span>印刷する (Print / PDF)</span>
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                className="hidden sm:flex min-w-[44px] min-h-[44px] items-center justify-center rounded-xl hover:bg-surface-hover transition-colors text-text-muted hover:text-text text-xs font-bold cursor-pointer -mr-2"
+                aria-label="閉じる"
+              >
+                ✕
+              </button>
+            </div>
           </div>
-        </div>
         </div>
 
         {/* Printable Document Area (Clean paper-white card) */}

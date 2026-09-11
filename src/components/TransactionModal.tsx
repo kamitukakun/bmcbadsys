@@ -110,7 +110,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6 shrink-0">
-          <h3 className="text-base font-bold text-text flex items-center gap-2">
+          <h3 className="text-sm sm:text-base font-bold text-text flex items-center gap-2">
             {initialTransaction ? (
               <>
                 <Edit3 className="w-4 h-4 text-accent" />
@@ -134,7 +134,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
-          <div className="p-5 sm:p-6 space-y-4 text-xs overflow-y-auto flex-1">
+          <div className="p-5 sm:p-6 space-y-3 sm:space-y-4 text-xs overflow-y-auto flex-1">
           
           {/* Type Toggle: 支出 vs 収入 */}
           <div className="grid grid-cols-2 gap-2 p-1.5 bg-surface-subtle border border-border rounded-xl">
@@ -208,7 +208,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                   <select
                     value={payerMemberId}
                     onChange={(e) => setPayerMemberId(e.target.value)}
-                    className="w-full p-2 bg-surface border border-amber-500/50 rounded-xl text-text font-bold focus:outline-none focus:ring-2 focus:ring-amber-500/40"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface border border-amber-500/50 rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:ring-2 focus:ring-amber-500/40"
                     required
                   >
                     {members.map(m => (
@@ -231,7 +231,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -240,7 +240,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
               >
                 {Object.values(activeCategories).map((c: any) => (
                   <option key={c.key} value={c.key} className="bg-surface text-text">
@@ -260,7 +260,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 placeholder="例: ラケットショップ、体育館、バドミントン協会"
                 value={vendor}
                 onChange={(e) => setVendor(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
               />
             </div>
           )}
@@ -280,7 +280,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                   step="1"
                   value={amount ?? ''}
                   onChange={(e) => setAmount(e.target.value === '' ? '' : Number(e.target.value))}
-                  className="w-full pl-7 pr-3 py-2.5 bg-surface-subtle border border-border rounded-xl text-text font-black text-sm focus:outline-none focus:border-accent"
+                  className="w-full pl-7 pr-3 py-2 sm:py-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-black text-sm focus:outline-none focus:border-accent"
                 />
               </div>
             </div>
@@ -290,7 +290,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-semibold sm:leading-normal focus:outline-none focus:border-accent"
               >
                 {Object.entries(PAYMENT_METHODS).map(([k, v]) => (
                   <option key={k} value={k} className="bg-surface text-text">
@@ -309,7 +309,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               placeholder="例: AS-700シャトル 1箱購入、夜間枠利用料"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
+              className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
             />
           </div>
 
@@ -322,7 +322,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 placeholder="例: 領収証あり(番号: 1234)"
                 value={receiptNote}
                 onChange={(e) => setReceiptNote(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -332,7 +332,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 type="text"
                 value={recordedBy}
                 onChange={(e) => setRecordedBy(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text focus:outline-none focus:border-accent"
               />
             </div>
           </div>

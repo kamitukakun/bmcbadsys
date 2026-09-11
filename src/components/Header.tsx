@@ -251,7 +251,7 @@ export const Header: React.FC<HeaderProps> = ({
             )}
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-base sm:text-lg font-bold text-header-text leading-tight tracking-tight truncate max-w-[200px] sm:max-w-none">
+                <h1 className="text-sm sm:text-lg font-bold text-header-text leading-tight tracking-tight truncate max-w-[200px] sm:max-w-none">
                   {settings.clubName}
                 </h1>
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-accent/15 text-accent border border-accent/30 shrink-0">
@@ -273,7 +273,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></div>
               <div>
                 <div className="text-[10px] uppercase font-bold text-slate-300 tracking-wider">クラブ現在残高</div>
-                <div className="text-sm sm:text-base font-extrabold text-white tabular-nums">
+                <div className="text-xs sm:text-base font-extrabold text-white tabular-nums">
                   {formatCurrency(currentBalance)}
                 </div>
               </div>

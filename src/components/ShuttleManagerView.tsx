@@ -250,7 +250,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-xl sm:text-2xl font-black text-text tracking-tight flex items-center gap-2.5">
+            <h1 className="text-sm sm:text-2xl font-black text-text tracking-tight flex items-center gap-2.5">
               <span className="p-2 bg-accent/10 border border-accent/20 rounded-full text-accent shrink-0">
                 <Package className="w-6 h-6" />
               </span>
@@ -290,7 +290,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                   {valuationRate}% 掛け
                 </span>
               </div>
-              <div className="text-3xl sm:text-4xl font-black text-text tracking-tight tabular-nums mt-1">
+              <div className="text-2xl sm:text-4xl font-black text-text tracking-tight tabular-nums mt-1">
                 {formatCurrency(totalStats.totalValuation)}
               </div>
             </div>
@@ -526,11 +526,13 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
               <div className="space-y-3.5">
                 {/* Brand & Speed Tag */}
                 <div className="flex items-start justify-between gap-2">
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-surface-subtle text-text-muted border border-border">
                       {shuttle.brand}
                     </span>
-                    <h3 className="text-base font-bold text-text mt-1">{shuttle.modelName}</h3>
+                    <h3 className="text-base font-bold text-text mt-1 min-w-0 truncate" title={shuttle.modelName}>
+                      {shuttle.modelName}
+                    </h3>
                   </div>
 
                   <span className={`text-xs font-bold px-2.5 py-1 rounded-full border shrink-0 ${speedInfo.color}`}>
@@ -550,7 +552,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                       </div>
 
                       {(
-                        <div className="flex items-baseline gap-2">
+                        <div className="flex items-baseline gap-2 flex-wrap">
                           <span className="text-2xl font-black text-text tabular-nums">
                             {tubes} <span className="text-xs font-normal text-text-muted">ダース</span>
                           </span>
@@ -697,7 +699,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
             </div>
 
             <form onSubmit={handleRestockSubmit} className="flex flex-col flex-1 overflow-hidden min-h-0">
-              <div className="p-5 sm:p-6 space-y-4 text-xs overflow-y-auto flex-1 min-h-0">
+              <div className="p-5 sm:p-6 space-y-3 sm:space-y-4 text-xs overflow-y-auto flex-1 min-h-0">
                 <div className="p-3.5 bg-surface-subtle rounded-xl border border-border">
                   <div className="text-[10px] font-bold text-text-muted">{restockModalItem.brand}</div>
                   <div className="text-sm font-bold text-text">{restockModalItem.modelName} ({SPEED_NUMBER_LABELS[restockModalItem.speedNumber].label})</div>
@@ -747,7 +749,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                         min="1"
                         value={restockTubes}
                         onChange={(e) => setRestockTubes(e.target.value === '' ? '' : Math.max(1, Number(e.target.value)))}
-                        className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
+                        className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
                         required
                       />
                     </div>
@@ -765,7 +767,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                         min="1"
                         value={restockTotalBallsInput}
                         onChange={(e) => setRestockTotalBallsInput(e.target.value === '' ? '' : Math.max(1, Number(e.target.value)))}
-                        className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
+                        className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
                         required
                       />
                     </div>
@@ -785,7 +787,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                     step="50"
                     value={restockPrice}
                     onChange={(e) => setRestockPrice(e.target.value === '' ? '' : Math.max(0, Number(e.target.value)))}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
                     required
                   />
                   <div className="text-[11px] text-text-muted mt-0.5">
@@ -898,7 +900,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                           <select
                             value={restockPayerId}
                             onChange={(e) => setRestockPayerId(e.target.value)}
-                            className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
+                            className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
                           >
                             {members.map(m => (
                               <option key={m.id} value={m.id}>{m.name} ({m.role === 'leader' ? '代表' : m.role === 'officer' ? '役員' : '部員'})</option>
@@ -954,7 +956,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
               </button>
             </div>
 
-            <form onSubmit={showAddModal ? handleCreateSubmit : handleEditSubmit} className="space-y-4 text-xs">
+            <form onSubmit={showAddModal ? handleCreateSubmit : handleEditSubmit} className="space-y-3 sm:space-y-4 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block font-bold text-text mb-1">メーカー / ブランド</label>
@@ -962,7 +964,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                     type="text"
                     value={showAddModal ? newBrand : (editModalItem?.brand ?? '')}
                     onChange={(e) => showAddModal ? setNewBrand(e.target.value) : setEditModalItem(prev => prev ? { ...prev, brand: e.target.value } : null)}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold focus:outline-none focus:border-accent"
                     placeholder="YONEX, GOSEN等"
                     required
                   />
@@ -973,7 +975,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                     type="text"
                     value={showAddModal ? newModel : (editModalItem?.modelName ?? '')}
                     onChange={(e) => showAddModal ? setNewModel(e.target.value) : setEditModalItem(prev => prev ? { ...prev, modelName: e.target.value } : null)}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold focus:outline-none focus:border-accent"
                     placeholder="エアロセンサ 700等"
                     required
                   />
@@ -989,7 +991,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                       const val = Number(e.target.value) as 2 | 3 | 4 | 5;
                       showAddModal ? setNewSpeed(val) : setEditModalItem(prev => prev ? { ...prev, speedNumber: val } : null);
                     }}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold focus:outline-none focus:border-accent"
                   >
                     <option value={2}>2番 (夏季 27℃〜33℃)</option>
                     <option value={3}>3番 (春秋 22℃〜28℃)</option>
@@ -1005,7 +1007,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                       const val = e.target.value as 'waterfowl' | 'synthetic' | 'hybrid';
                       showAddModal ? setNewMaterial(val) : setEditModalItem(prev => prev ? { ...prev, material: val } : null);
                     }}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold focus:outline-none focus:border-accent"
                   >
                     <option value="waterfowl">水鳥羽根 (フェザー)</option>
                     <option value="hybrid">ハイブリッド</option>
@@ -1039,7 +1041,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                         const val = e.target.value === '' ? '' : Math.max(0, Number(e.target.value));
                         showAddModal ? setNewTubes(val) : setEditModalItem(prev => prev ? { ...prev, tubesInStock: Number(val) || 0 } : null);
                       }}
-                      className="w-full p-2 bg-surface border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                      className="w-full py-1.5 px-2.5 sm:p-2 bg-surface border border-border rounded-lg sm:rounded-xl text-text font-bold focus:outline-none focus:border-accent"
                       required
                     />
                   </div>
@@ -1055,7 +1057,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                         showAddModal ? setNewLooseBalls(val) : setEditModalItem(prev => prev ? { ...prev, looseBallsInStock: val } : null);
                       }}
                       placeholder="0"
-                      className="w-full p-2 bg-surface border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                      className="w-full py-1.5 px-2.5 sm:p-2 bg-surface border border-border rounded-lg sm:rounded-xl text-text font-bold focus:outline-none focus:border-accent"
                     />
                   </div>
                 </div>
@@ -1074,7 +1076,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                       const val = e.target.value === '' ? '' : Number(e.target.value);
                       showAddModal ? setNewPrice(val) : setEditModalItem(prev => prev ? { ...prev, pricePerTube: Number(val) || 0 } : null);
                     }}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold focus:outline-none focus:border-accent"
                     required
                   />
                   <div className="text-[10px] text-text-muted mt-0.5">
@@ -1091,7 +1093,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                       const val = Number(e.target.value);
                       showAddModal ? setNewThreshold(val) : setEditModalItem(prev => prev ? { ...prev, lowStockThreshold: val } : null);
                     }}
-                    className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                    className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-bold focus:outline-none focus:border-accent"
                     required
                   />
                   <div className="text-[10px] text-text-muted mt-0.5">
@@ -1106,7 +1108,7 @@ export const ShuttleManagerView: React.FC<ShuttleManagerViewProps> = ({
                   type="text"
                   value={showAddModal ? newNotes : (editModalItem?.notes ?? '')}
                   onChange={(e) => showAddModal ? setNewNotes(e.target.value) : setEditModalItem(prev => prev ? { ...prev, notes: e.target.value } : null)}
-                  className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:border-accent"
+                  className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-semibold focus:outline-none focus:border-accent"
                   placeholder="大会用、ゲーム練習用など"
                 />
               </div>

@@ -4,6 +4,8 @@ import {
   db, 
   googleProvider, 
   signInWithPopup, 
+  signInWithRedirect,
+  getRedirectResult,
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
   firebaseSignOut, 
@@ -112,6 +114,90 @@ export const AuthGate: React.FC<AuthGateProps> = ({ children, state, setState })
     return obj;
   };
 
+  // Helper to load and sync isolated account data for a Firebase user
+  const loadUserDataForUser = async (firebaseUser: FirebaseUser) => {
+    if (loadedUserIdRef.current === firebaseUser.uid) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    setSyncStatus('syncing');
+
+    try {
+      const docRef = doc(db, 'club_app_data', firebaseUser.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const remoteData = docSnap.data() as AppState;
+        if (remoteData && remoteData.transactions && remoteData.members) {
+          const merged: AppState = {
+            ...INITIAL_APP_STATE,
+            ...remoteData,
+            settings: {
+              ...INITIAL_APP_STATE.settings,
+              ...(remoteData.settings || {}),
+            },
+          };
+          setState(merged);
+          saveAppState(merged, firebaseUser.uid);
+        } else {
+          // Corrupted data document: reset to clean state
+          setState(INITIAL_APP_STATE);
+          saveAppState(INITIAL_APP_STATE, firebaseUser.uid);
+          await setDoc(docRef, cleanObject(INITIAL_APP_STATE));
+        }
+      } else {
+        // BRAND NEW USER:
+        // Strictly initialize with fresh INITIAL_APP_STATE. NEVER inherit previous user's data!
+        setState(INITIAL_APP_STATE);
+        saveAppState(INITIAL_APP_STATE, firebaseUser.uid);
+        await setDoc(docRef, cleanObject(INITIAL_APP_STATE));
+      }
+
+      loadedUserIdRef.current = firebaseUser.uid;
+      setSyncStatus('synced');
+    } catch (err) {
+      handleFirestoreError(err, OperationType.GET, `club_app_data/${firebaseUser.uid}`);
+      // Fallback to local cache for THIS user only
+      const localData = loadAppState(firebaseUser.uid);
+      setState(localData);
+      loadedUserIdRef.current = firebaseUser.uid;
+      setSyncStatus('offline');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle redirect result from Google sign-in (e.g. mobile/in-app browser fallback)
+  useEffect(() => {
+    let isMounted = true;
+    getRedirectResult(auth)
+      .then(async (result) => {
+        if (!isMounted) return;
+        if (result && result.user) {
+          setUser(result.user);
+          await loadUserDataForUser(result.user);
+        }
+      })
+      .catch((err: any) => {
+        if (!isMounted) return;
+        console.error('Google Redirect Sign-in Result Error:', err);
+        const code = err?.code || '';
+        if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') {
+          setError('ログインがキャンセルされました。');
+        } else if (code === 'auth/access_denied' || err?.message?.includes('access_denied') || err?.message?.includes('unverified')) {
+          setError('Googleアカウントの承認が許可されていません。Google Cloud ConsoleのOAuth同意画面で「アプリを公開」にするか、テストユーザーに対象アドレスを追加してください。');
+        } else {
+          setError(err.message || 'Googleリダイレクトログインに失敗しました。時間をおいて再試行してください。');
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   // Listen to Auth State with strict account isolation
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -125,53 +211,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ children, state, setState })
         return;
       }
 
-      // User logged in: keep loading active while fetching user's isolated data
-      setLoading(true);
-      setSyncStatus('syncing');
-
-      try {
-        const docRef = doc(db, 'club_app_data', firebaseUser.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const remoteData = docSnap.data() as AppState;
-          if (remoteData && remoteData.transactions && remoteData.members) {
-            const merged: AppState = {
-              ...INITIAL_APP_STATE,
-              ...remoteData,
-              settings: {
-                ...INITIAL_APP_STATE.settings,
-                ...(remoteData.settings || {}),
-              },
-            };
-            setState(merged);
-            saveAppState(merged, firebaseUser.uid);
-          } else {
-            // Corrupted data document: reset to clean state
-            setState(INITIAL_APP_STATE);
-            saveAppState(INITIAL_APP_STATE, firebaseUser.uid);
-            await setDoc(docRef, cleanObject(INITIAL_APP_STATE));
-          }
-        } else {
-          // BRAND NEW USER:
-          // Strictly initialize with fresh INITIAL_APP_STATE. NEVER inherit previous user's data!
-          setState(INITIAL_APP_STATE);
-          saveAppState(INITIAL_APP_STATE, firebaseUser.uid);
-          await setDoc(docRef, cleanObject(INITIAL_APP_STATE));
-        }
-
-        loadedUserIdRef.current = firebaseUser.uid;
-        setSyncStatus('synced');
-      } catch (err) {
-        handleFirestoreError(err, OperationType.GET, `club_app_data/${firebaseUser.uid}`);
-        // Fallback to local cache for THIS user only
-        const localData = loadAppState(firebaseUser.uid);
-        setState(localData);
-        loadedUserIdRef.current = firebaseUser.uid;
-        setSyncStatus('offline');
-      } finally {
-        setLoading(false);
-      }
+      await loadUserDataForUser(firebaseUser);
     });
 
     return () => {
@@ -235,18 +275,42 @@ export const AuthGate: React.FC<AuthGateProps> = ({ children, state, setState })
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (err: any) {
-      console.error('Google Sign-in Error:', err);
+      console.warn('Google Sign-in with popup failed, falling back to signInWithRedirect:', err);
       const code = err?.code || '';
-      if (code === 'auth/popup-closed-by-user') {
-        setError('ログインポップアップが閉じられました。');
-      } else if (code === 'auth/popup-blocked') {
-        setError('ブラウザのポップアップがブロックされました。ブラウザ設定でポップアップを許可するか、Safari/Chrome通常ウィンドウでお試しください。');
-      } else if (code === 'auth/access_denied' || err?.message?.includes('access_denied') || err?.message?.includes('unverified')) {
+
+      // Check if popup was blocked, closed, or not supported (especially on mobile / in-app browsers)
+      const shouldFallbackToRedirect = 
+        code === 'auth/popup-blocked' ||
+        code === 'auth/popup-closed-by-user' ||
+        code === 'auth/cancelled-popup-request' ||
+        code === 'auth/operation-not-supported-in-this-environment' ||
+        code === 'auth/auth-domain-config-required' ||
+        code === 'auth/internal-error' ||
+        err?.message?.toLowerCase().includes('popup');
+
+      if (code === 'auth/access_denied' || err?.message?.includes('access_denied') || err?.message?.includes('unverified')) {
         setError('Googleアカウントの承認が許可されていません。Google Cloud ConsoleのOAuth同意画面で「アプリを公開」にするか、テストユーザーに対象アドレスを追加してください。');
-      } else {
-        setError(err.message || 'Googleログインに失敗しました。時間をおいて再試行してください。');
+        setIsLoggingIn(false);
+        return;
+      }
+
+      // Try signInWithRedirect as fallback
+      try {
+        console.log('Initiating signInWithRedirect fallback...');
+        await signInWithRedirect(auth, googleProvider);
+        // The browser will redirect away to Google
+        return;
+      } catch (redirectErr: any) {
+        console.error('Google Redirect Sign-in Fallback Error:', redirectErr);
+        if (shouldFallbackToRedirect) {
+          setError('ポップアップおよび画面遷移（リダイレクト）ログインの開始に失敗しました。ブラウザ設定またはSafari/Chrome等でお試しください。');
+        } else {
+          setError(redirectErr.message || err.message || 'Googleログインに失敗しました。時間をおいて再試行してください。');
+        }
+        setIsLoggingIn(false);
       }
     } finally {
+      // If popup succeeded, isLoggingIn resets. If redirect triggered, page redirects.
       setIsLoggingIn(false);
     }
   };
@@ -328,7 +392,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ children, state, setState })
               <p className="font-semibold text-text">💡 アカウントについて</p>
               <ul className="list-disc list-inside space-y-0.5 text-text-muted">
                 <li>ログインするGoogleアカウントごとに、個別のクラブデータが独立して安全に保存されます。</li>
-                <li>ポップアップが開かない場合は、ブラウザのポップアップブロックを解除してください。</li>
+                <li>ポップアップがブロックされた場合でも、自動的に画面遷移（リダイレクト）ログインに切り替わります。</li>
               </ul>
             </div>
           </div>

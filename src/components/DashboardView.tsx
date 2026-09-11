@@ -147,7 +147,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
     <div className="space-y-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       
       {/* Top Bento Grid - Financial Highlights */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         
         {/* Current Balance Bento Card */}
         <div className="bg-surface border border-border rounded-2xl p-5 shadow-md flex flex-col justify-between">
@@ -158,7 +158,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
           </div>
           <div className="my-2">
-            <div className="text-2xl sm:text-3xl font-black text-text tracking-tight tabular-nums">
+            <div className="text-xl sm:text-3xl font-black text-text tracking-tight tabular-nums">
               {formatCurrency(currentBalance)}
             </div>
             <div className="text-[11px] text-accent font-semibold mt-0.5 flex items-center gap-1">
@@ -185,7 +185,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <span className="text-[10px] text-text-muted font-bold">在庫管理 →</span>
           </div>
           <div className="my-2">
-            <div className="text-2xl sm:text-3xl font-black text-accent tracking-tight tabular-nums">
+            <div className="text-xl sm:text-3xl font-black text-accent tracking-tight tabular-nums">
               {formatCurrency(shuttleStats.assetValuationTotal)}
             </div>
             <div className="text-[11px] text-text-muted mt-0.5">
@@ -221,7 +221,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <span className="text-[10px] text-text-muted font-bold">精算画面 →</span>
           </div>
           <div className="my-2">
-            <div className="text-2xl sm:text-3xl font-black text-amber-400 tracking-tight tabular-nums">
+            <div className="text-xl sm:text-3xl font-black text-amber-400 tracking-tight tabular-nums">
               {formatCurrency(unreimbursedDebtAmount)}
             </div>
             <div className="text-[11px] text-text-muted mt-0.5">
@@ -251,7 +251,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             <span className="text-[10px] text-text-muted font-bold">名簿確認 →</span>
           </div>
           <div className="my-2">
-            <div className="text-2xl sm:text-3xl font-black text-amber-400 tracking-tight tabular-nums">
+            <div className="text-xl sm:text-3xl font-black text-amber-400 tracking-tight tabular-nums">
               {inactive6Members.length} <span className="text-xs font-normal text-text-muted">名</span>
             </div>
             <div className="text-[11px] text-text-muted mt-0.5">
@@ -288,18 +288,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           {/* Quick preset tiles */}
-          <div className="grid grid-cols-3 gap-3 p-4 bg-surface-subtle rounded-xl border border-border text-xs">
-            <div className="text-center p-2 rounded-xl bg-surface-muted">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 bg-surface-subtle rounded-xl border border-border text-xs">
+            <div className="text-center p-2.5 rounded-xl bg-surface-muted">
               <div className="text-[10px] text-text-muted font-bold">夜間 (18:00-21:30)</div>
               <div className="text-sm font-black text-text mt-0.5">会場費 ¥1,800</div>
               <div className="text-[10px] text-text-subtle">シャトル6本 / 8名</div>
             </div>
-            <div className="text-center p-2 rounded-xl bg-surface-muted">
+            <div className="text-center p-2.5 rounded-xl bg-surface-muted">
               <div className="text-[10px] text-text-muted font-bold">午前 (09:00-12:00)</div>
               <div className="text-sm font-black text-text mt-0.5">会場費 ¥800</div>
               <div className="text-[10px] text-text-subtle">シャトル4本 / 6名</div>
             </div>
-            <div className="text-center p-2 rounded-xl bg-surface-muted">
+            <div className="text-center p-2.5 rounded-xl bg-surface-muted">
               <div className="text-[10px] text-text-muted font-bold">午後 (13:00-17:00)</div>
               <div className="text-sm font-black text-text mt-0.5">会場費 ¥1,200</div>
               <div className="text-[10px] text-text-subtle">シャトル5本 / 8名</div>
@@ -415,37 +415,40 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               return (
                 <div 
                   key={tx.id} 
-                  className="p-3.5 bg-surface-subtle rounded-xl border border-border-subtle flex items-center justify-between text-xs"
+                  className="p-3.5 bg-surface-subtle rounded-xl border border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="text-[11px] text-text-muted font-semibold tabular-nums w-16">
+                  <div className="flex items-start sm:items-center gap-3 min-w-0 flex-1">
+                    <div className="text-[11px] text-text-muted font-semibold tabular-nums shrink-0 pt-0.5 sm:pt-0 w-16">
                       {formatDate(tx.date)}
                     </div>
-                    <div>
+                    <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="font-bold text-text">{tx.description}</span>
+                        <span className="font-bold text-text truncate max-w-full" title={tx.description}>
+                          {tx.description}
+                        </span>
                         {tx.vendor && (
-                          <span className="px-1.5 py-0.5 bg-surface-muted text-text-muted rounded-full text-[10px] flex items-center gap-1">
+                          <span className="px-1.5 py-0.5 bg-surface-muted text-text-muted rounded-full text-[10px] flex items-center gap-1 shrink-0">
                             <Store className="w-2.5 h-2.5 text-text-muted" />
                             <span>{tx.vendor}</span>
                           </span>
                         )}
                         {isOutOfPocket && (
-                          <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold border ${
+                          <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold border shrink-0 ${
                             tx.isReimbursed ? 'bg-accent/15 text-accent border-accent/30' : 'bg-amber-500/15 text-amber-400 border-amber-500/30'
                           }`}>
                             {tx.isReimbursed ? '立替精算済' : `立替未精算: ${tx.payerName || '個人'}`}
                           </span>
                         )}
                       </div>
-                      <div className="text-[11px] text-text-subtle mt-0.5">
+                      <div className="text-[11px] text-text-subtle mt-0.5 truncate">
                         決済: {PAYMENT_METHODS[tx.paymentMethod]?.label || tx.paymentMethod} • 記帳者: {tx.recordedBy}
                       </div>
                     </div>
                   </div>
 
-                  <div className="text-right">
-                    <div className={`text-base font-black tabular-nums ${
+                  <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 pt-1 sm:pt-0 border-t border-border/40 sm:border-t-0">
+                    <span className="text-[10px] text-text-muted sm:hidden">金額:</span>
+                    <div className={`text-sm sm:text-base font-black tabular-nums ${
                       isIncome ? 'text-accent' : 'text-rose-400'
                     }`}>
                       {isIncome ? `+${formatCurrency(tx.amount)}` : `-${formatCurrency(tx.amount)}`}

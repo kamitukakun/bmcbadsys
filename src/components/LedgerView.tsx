@@ -154,7 +154,7 @@ export const LedgerView: React.FC<LedgerViewProps> = ({
       {/* Top Header & Actions Bento Card */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface border border-border rounded-2xl p-6 shadow-md">
         <div>
-          <h2 className="text-xl font-bold text-text tracking-tight flex items-center gap-2">
+          <h2 className="text-sm sm:text-xl font-bold text-text tracking-tight flex items-center gap-2">
             <FileText className="w-5 h-5 text-accent" />
             <span>収支出納帳</span>
           </h2>
@@ -197,21 +197,21 @@ export const LedgerView: React.FC<LedgerViewProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-surface p-5 rounded-2xl border border-border shadow-md">
           <div className="text-xs font-bold text-text-muted uppercase tracking-wider">表示中の総収入</div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-accent mt-1 tabular-nums">
+          <div className="text-xl sm:text-3xl font-extrabold text-accent mt-1 tabular-nums">
             +{formatCurrency(filteredIncome)}
           </div>
         </div>
 
         <div className="bg-surface p-5 rounded-2xl border border-border shadow-md">
           <div className="text-xs font-bold text-text-muted uppercase tracking-wider">表示中の総支出</div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-rose-400 mt-1 tabular-nums">
+          <div className="text-xl sm:text-3xl font-extrabold text-rose-400 mt-1 tabular-nums">
             -{formatCurrency(filteredExpense)}
           </div>
         </div>
 
         <div className="bg-surface p-5 rounded-2xl border border-border shadow-md">
           <div className="text-xs font-bold text-text-muted uppercase tracking-wider">表示中の収支差額</div>
-          <div className={`text-2xl sm:text-3xl font-extrabold mt-1 tabular-nums ${
+          <div className={`text-xl sm:text-3xl font-extrabold mt-1 tabular-nums ${
             filteredNet >= 0 ? 'text-accent' : 'text-rose-400'
           }`}>
             {filteredNet >= 0 ? `+${formatCurrency(filteredNet)}` : formatCurrency(filteredNet)}
@@ -281,14 +281,14 @@ export const LedgerView: React.FC<LedgerViewProps> = ({
         </div>
 
         {/* Active Filters Summary */}
-        <div className="flex items-center justify-between text-xs text-text-muted pt-1 border-t border-border-subtle">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-text-muted pt-1 border-t border-border-subtle">
           <div>
             表示中: <strong className="text-text font-bold">{filteredTransactions.length}</strong> 件 / 全 {transactions.length} 件
           </div>
           <button
             type="button"
             onClick={() => setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc')}
-            className="flex items-center gap-1 text-text-muted hover:text-text font-bold transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-surface-hover text-text-muted hover:text-text font-bold transition-colors cursor-pointer"
           >
             <ArrowUpDown className="w-3.5 h-3.5" />
             <span>日付順: {sortOrder === 'desc' ? '新しい順' : '古い順'}</span>

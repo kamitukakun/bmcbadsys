@@ -1388,7 +1388,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
               <Swords className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-base sm:text-xl font-black text-text flex items-center gap-2 flex-wrap">
+              <h1 className="text-sm sm:text-xl font-black text-text flex items-center gap-2 flex-wrap">
                 <span>ダブルス組合せ</span>
               </h1>
               <p className="text-xs text-text-muted mt-0.5">
@@ -1558,7 +1558,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                 <select
                   value={matcherMode}
                   onChange={(e) => setMatcherMode(e.target.value as any)}
-                  className="w-full min-h-[38px] p-2 bg-surface border border-border rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
+                  className="w-full min-h-[38px] py-1.5 px-2.5 sm:p-2 bg-surface border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal text-xs focus:outline-none focus:border-accent"
                 >
                   <option value="fair">公平</option>
                   <option value="mix_priority">ミックス優先</option>
@@ -1623,7 +1623,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                     placeholder="氏名やふりがなで検索..."
                     value={searchKeyword}
                     onChange={(e) => setSearchKeyword(e.target.value)}
-                    className="w-full min-h-[44px] pl-10 pr-4 bg-surface-subtle border border-border rounded-xl text-xs text-text font-bold focus:outline-none focus:border-accent"
+                    className="w-full min-h-[44px] pl-10 pr-4 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-xs text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
                   />
                 </div>
               </div>
@@ -1987,7 +1987,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                 type="button"
                 onClick={hasActiveSession ? handleResumeSession : handleStartSession}
                 disabled={selectedMemberIds.length < 4}
-                className={`w-full min-h-[48px] py-3 mb-3 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-xl transition-all ${
+                className={`w-full min-h-[48px] py-3 mb-3 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xl transition-all ${
                   selectedMemberIds.length >= 4
                     ? 'bg-accent hover:bg-accent-hover text-accent-text cursor-pointer'
                     : 'bg-surface-hover text-text-muted cursor-not-allowed opacity-60 border border-border'
@@ -2014,7 +2014,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-surface border border-border rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-border pb-3">
-              <h3 className="text-base font-bold text-text flex items-center gap-2">
+              <h3 className="text-sm sm:text-base font-bold text-text flex items-center gap-2">
                 <UserPlus className="w-4 h-4 text-amber-400" />
                 <span>新規ビジター名簿の登録</span>
               </h3>
@@ -2032,7 +2032,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
               登録と同時にクラブの名簿台帳へ正規登録され、一意なIDでダブルスプレイヤーとして自動選択されます。
             </p>
 
-            <form onSubmit={handleCreateVisitor} className="space-y-3.5">
+            <form onSubmit={handleCreateVisitor} className="space-y-3 sm:space-y-3.5">
               <div>
                 <label className="block text-xs font-bold text-text mb-1">
                   氏名 <span className="text-rose-400">*</span>
@@ -2043,7 +2043,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                   placeholder="例: 加美山 太郎"
                   value={visitorName}
                   onChange={(e) => setVisitorName(e.target.value)}
-                  className="w-full min-h-[44px] p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
+                  className="w-full min-h-[44px] py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal text-xs focus:outline-none focus:border-accent"
                 />
               </div>
 
@@ -2062,7 +2062,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                     placeholder=""
                     value={visitorKana}
                     onChange={(e) => setVisitorKana(e.target.value)}
-                    className="w-full min-h-[44px] p-2.5 bg-surface-subtle border border-border rounded-xl text-text text-xs focus:outline-none focus:border-accent"
+                    className="w-full min-h-[44px] py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text text-xs focus:outline-none focus:border-accent"
                   />
                 </div>
                 <div>
@@ -2070,7 +2070,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                   <select
                     value={visitorGender}
                     onChange={(e) => setVisitorGender(e.target.value as Gender)}
-                    className="w-full min-h-[44px] p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold text-xs focus:outline-none focus:border-accent"
+                    className="w-full min-h-[44px] py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal text-xs focus:outline-none focus:border-accent"
                   >
                     <option value="male">男性</option>
                     <option value="female">女性</option>
@@ -2085,7 +2085,7 @@ export const DoublesMatchView: React.FC<DoublesMatchViewProps> = ({
                   placeholder="例: 〇〇さんの紹介、初参加など"
                   value={visitorNotes}
                   onChange={(e) => setVisitorNotes(e.target.value)}
-                  className="w-full min-h-[44px] p-2.5 bg-surface-subtle border border-border rounded-xl text-text text-xs focus:outline-none focus:border-accent"
+                  className="w-full min-h-[44px] py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text text-xs focus:outline-none focus:border-accent"
                 />
               </div>
 

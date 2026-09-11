@@ -145,7 +145,7 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
             <div className="p-2 bg-accent/15 border border-accent/30 rounded-full text-accent">
               <Users className="w-5 h-5" />
             </div>
-            <h2 className="text-xl font-bold text-text tracking-tight">
+            <h2 className="text-sm sm:text-xl font-bold text-text tracking-tight">
               名簿管理
             </h2>
           </div>
@@ -169,7 +169,7 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
         
         <div className="bg-surface p-5 rounded-2xl border border-border shadow-md">
           <div className="text-xs font-bold text-text-muted uppercase tracking-wider">登録者数</div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-text mt-1 tabular-nums">
+          <div className="text-xl sm:text-3xl font-extrabold text-text mt-1 tabular-nums">
             {members.length} <span className="text-xs font-normal text-text-muted">名</span>
           </div>
           <div className="text-[11px] text-text-muted mt-1">
@@ -179,7 +179,7 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
 
         <div className="bg-surface p-5 rounded-2xl border border-border shadow-md">
           <div className="text-xs font-bold text-text-muted uppercase tracking-wider">イベント開催数</div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-accent mt-1 tabular-nums">
+          <div className="text-xl sm:text-3xl font-extrabold text-accent mt-1 tabular-nums">
             {practiceSessions.length} <span className="text-xs font-normal text-text-muted">回</span>
           </div>
           <div className="text-[11px] text-text-muted mt-1">
@@ -189,7 +189,7 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
 
         <div className="bg-surface p-5 rounded-2xl border border-border shadow-md">
           <div className="text-xs font-bold text-text-muted uppercase tracking-wider">参加費 累計集金額</div>
-          <div className="text-2xl sm:text-3xl font-extrabold text-accent mt-1 tabular-nums">
+          <div className="text-xl sm:text-3xl font-extrabold text-accent mt-1 tabular-nums">
             {formatCurrency(membersWithStats.reduce((sum, m) => sum + m.totalPaidAmount, 0))}
           </div>
           <div className="text-[11px] text-text-muted mt-1">
@@ -217,7 +217,7 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
             </span>
             <span className="text-[10px] font-bold text-text-muted">クリックで絞込</span>
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-amber-400 mt-1 tabular-nums">
+          <div className="text-xl sm:text-3xl font-black text-amber-400 mt-1 tabular-nums">
             {missingRecent6Count} <span className="text-xs font-normal text-text-muted">名</span>
           </div>
           <div className="text-[11px] text-text-muted mt-1">
@@ -417,8 +417,9 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
       {/* Member Attendance & Payment Detail Modal */}
       {selectedMemberDetail && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-surface border border-border rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5 animate-fade-in">
-            <div className="flex items-center justify-between border-b border-border pb-3">
+          <div className="bg-surface border border-border rounded-2xl max-w-lg w-full max-h-[85vh] shadow-2xl flex flex-col animate-fade-in overflow-hidden">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-border p-4 sm:p-5 shrink-0">
               <div>
                 <h3 className="text-base font-bold text-text flex items-center gap-2">
                   <span>{selectedMemberDetail.name} さんの参加・集金実績</span>
@@ -437,144 +438,150 @@ export const MembersAttendanceView: React.FC<MembersAttendanceViewProps> = ({
               </button>
             </div>
 
-            {/* Summary Banner */}
-            <div className="grid grid-cols-2 gap-3 p-4 bg-surface-subtle rounded-xl border border-border">
-              <div>
-                <div className="text-xs text-text-muted font-semibold">通算参加回数</div>
-                <div className="text-xl font-black text-text mt-0.5">
-                  {selectedMemberDetail.participationLogs?.length || 0} 回
+            {/* Modal Scrollable Body */}
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-5">
+              {/* Summary Banner */}
+              <div className="grid grid-cols-2 gap-3 p-4 bg-surface-subtle rounded-xl border border-border">
+                <div>
+                  <div className="text-xs text-text-muted font-semibold">通算参加回数</div>
+                  <div className="text-xl font-black text-text mt-0.5">
+                    {selectedMemberDetail.participationLogs?.length || 0} 回
+                  </div>
+                </div>
+                <div>
+                  <div className="text-xs text-text-muted font-semibold">累計支払金額</div>
+                  <div className="text-xl font-black text-accent mt-0.5">
+                    {formatCurrency((selectedMemberDetail.participationLogs || []).reduce((s, l) => s + l.feePaid, 0))}
+                  </div>
                 </div>
               </div>
-              <div>
-                <div className="text-xs text-text-muted font-semibold">累計支払金額</div>
-                <div className="text-xl font-black text-accent mt-0.5">
-                  {formatCurrency((selectedMemberDetail.participationLogs || []).reduce((s, l) => s + l.feePaid, 0))}
-                </div>
-              </div>
-            </div>
 
-            {/* Emergency Contact Box */}
-            {selectedMemberDetail.emergencyContact && (
-              <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs space-y-1">
-                <div className="font-bold text-rose-300 flex items-center gap-1.5">
-                  <HeartHandshake className="w-4 h-4 text-rose-400" />
-                  <span>緊急連絡先</span>
-                </div>
-                <div className="text-text font-medium">
-                  {selectedMemberDetail.emergencyContact.name} ({selectedMemberDetail.emergencyContact.relation || '続柄未設定'})
-                </div>
-                <div className="text-text-muted tabular-nums">
-                  TEL: {selectedMemberDetail.emergencyContact.phone || '未登録'}
-                </div>
-              </div>
-            )}
-
-            {/* Participation Log List */}
-            <div className="space-y-2">
-              <h4 className="text-xs font-bold text-text">イベント参加ログ一覧</h4>
-              {(!selectedMemberDetail.participationLogs || selectedMemberDetail.participationLogs.length === 0) ? (
-                <div className="text-center py-6 text-text-muted text-xs bg-surface-subtle/60 rounded-xl">
-                  まだ参加記録はありません。
-                </div>
-              ) : (
-                <div className="max-h-60 overflow-y-auto space-y-2 pr-1">
-                  {selectedMemberDetail.participationLogs.map((log, idx) => (
-                    <div key={idx} className="p-3 bg-surface-subtle rounded-xl border border-border flex items-center justify-between text-xs">
-                      {editingLogIndex === idx ? (
-                        <>
-                          <div className="flex-1 mr-3">
-                            <div className="font-bold text-text mb-1">{formatDate(log.date)} - {log.eventName}</div>
-                            <input
-                              type="number"
-                              min="0"
-                              value={editFee}
-                              onChange={(e) => {
-                                const val = e.target.value;
-                                if (val === '') {
-                                  setEditFee('');
-                                } else {
-                                  const num = Number(val);
-                                  setEditFee(isNaN(num) ? '' : Math.max(0, num));
-                                }
-                              }}
-                              placeholder="0"
-                              className="w-full p-1.5 bg-surface border border-border rounded-xl text-text font-bold"
-                            />
-                          </div>
-                          <div className="flex gap-1.5">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                const normalizedFee = typeof editFee === 'number' ? editFee : 0;
-                                onUpdateParticipation(selectedMemberDetail.id, log.sessionId, normalizedFee);
-                                setEditingLogIndex(null);
-                                setSelectedMemberDetail(prev => prev ? {
-                                    ...prev,
-                                    participationLogs: prev.participationLogs?.map((l, i) => i === idx ? {...l, feePaid: normalizedFee} : l)
-                                } : null);
-                              }}
-                              className="px-3 min-h-[40px] flex items-center justify-center bg-accent hover:bg-accent-hover text-accent-text rounded-xl font-bold cursor-pointer transition-colors"
-                            >保存</button>
-                            <button
-                              type="button"
-                              onClick={() => setEditingLogIndex(null)}
-                              className="px-3 min-h-[40px] flex items-center justify-center bg-surface-hover text-text rounded-xl font-bold cursor-pointer border border-border transition-colors"
-                            >戻る</button>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div>
-                            <div className="font-bold text-text">{formatDate(log.date)}</div>
-                            <div className="text-[11px] text-text-muted">{log.eventName}</div>
-                          </div>
-                          <div className="flex items-center gap-1.5 sm:gap-2">
-                            <div className="text-right mr-1">
-                              <div className="font-black text-accent tabular-nums">+{formatCurrency(log.feePaid)}</div>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setEditingLogIndex(idx);
-                                setEditFee(log.feePaid);
-                              }}
-                              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-text-muted hover:text-accent hover:bg-surface-hover transition-colors cursor-pointer"
-                              title="参加費を編集"
-                              aria-label="参加費を編集"
-                            >
-                              <Edit3 className="w-3.5 h-3.5"/>
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                onDeleteParticipation(selectedMemberDetail.id, log.sessionId);
-                                setSelectedMemberDetail(prev => prev ? {
-                                    ...prev,
-                                    participationLogs: prev.participationLogs?.filter((_, i) => i !== idx)
-                                } : null);
-                              }}
-                              className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-text-muted hover:text-rose-400 hover:bg-surface-hover transition-colors cursor-pointer"
-                              title="参加ログを削除"
-                              aria-label="参加ログを削除"
-                            >
-                              <Trash2 className="w-3.5 h-3.5"/>
-                            </button>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  ))}
+              {/* Emergency Contact Box */}
+              {selectedMemberDetail.emergencyContact && (
+                <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs space-y-1">
+                  <div className="font-bold text-rose-300 flex items-center gap-1.5">
+                    <HeartHandshake className="w-4 h-4 text-rose-400" />
+                    <span>緊急連絡先</span>
+                  </div>
+                  <div className="text-text font-medium">
+                    {selectedMemberDetail.emergencyContact.name} ({selectedMemberDetail.emergencyContact.relation || '続柄未設定'})
+                  </div>
+                  <div className="text-text-muted tabular-nums">
+                    TEL: {selectedMemberDetail.emergencyContact.phone || '未登録'}
+                  </div>
                 </div>
               )}
+
+              {/* Participation Log List */}
+              <div className="space-y-2">
+                <h4 className="text-xs font-bold text-text">イベント参加ログ一覧</h4>
+                {(!selectedMemberDetail.participationLogs || selectedMemberDetail.participationLogs.length === 0) ? (
+                  <div className="text-center py-6 text-text-muted text-xs bg-surface-subtle/60 rounded-xl">
+                    まだ参加記録はありません。
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {selectedMemberDetail.participationLogs.map((log, idx) => (
+                      <div key={idx} className="p-3 bg-surface-subtle rounded-xl border border-border flex items-center justify-between text-xs">
+                        {editingLogIndex === idx ? (
+                          <>
+                            <div className="flex-1 mr-3">
+                              <div className="font-bold text-text mb-1">{formatDate(log.date)} - {log.eventName}</div>
+                              <input
+                                type="number"
+                                min="0"
+                                value={editFee}
+                                onChange={(e) => {
+                                  const val = e.target.value;
+                                  if (val === '') {
+                                    setEditFee('');
+                                  } else {
+                                    const num = Number(val);
+                                    setEditFee(isNaN(num) ? '' : Math.max(0, num));
+                                  }
+                                }}
+                                placeholder="0"
+                                className="w-full p-1.5 bg-surface border border-border rounded-xl text-text font-bold"
+                              />
+                            </div>
+                            <div className="flex gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const normalizedFee = typeof editFee === 'number' ? editFee : 0;
+                                  onUpdateParticipation(selectedMemberDetail.id, log.sessionId, normalizedFee);
+                                  setEditingLogIndex(null);
+                                  setSelectedMemberDetail(prev => prev ? {
+                                      ...prev,
+                                      participationLogs: prev.participationLogs?.map((l, i) => i === idx ? {...l, feePaid: normalizedFee} : l)
+                                  } : null);
+                                }}
+                                className="px-3 min-h-[40px] flex items-center justify-center bg-accent hover:bg-accent-hover text-accent-text rounded-xl font-bold cursor-pointer transition-colors"
+                              >保存</button>
+                              <button
+                                type="button"
+                                onClick={() => setEditingLogIndex(null)}
+                                className="px-3 min-h-[40px] flex items-center justify-center bg-surface-hover text-text rounded-xl font-bold cursor-pointer border border-border transition-colors"
+                              >戻る</button>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div>
+                              <div className="font-bold text-text">{formatDate(log.date)}</div>
+                              <div className="text-[11px] text-text-muted">{log.eventName}</div>
+                            </div>
+                            <div className="flex items-center gap-1.5 sm:gap-2">
+                              <div className="text-right mr-1">
+                                <div className="font-black text-accent tabular-nums">+{formatCurrency(log.feePaid)}</div>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setEditingLogIndex(idx);
+                                  setEditFee(log.feePaid);
+                                }}
+                                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-text-muted hover:text-accent hover:bg-surface-hover transition-colors cursor-pointer"
+                                title="参加費を編集"
+                                aria-label="参加費を編集"
+                              >
+                                <Edit3 className="w-3.5 h-3.5"/>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  onDeleteParticipation(selectedMemberDetail.id, log.sessionId);
+                                  setSelectedMemberDetail(prev => prev ? {
+                                      ...prev,
+                                      participationLogs: prev.participationLogs?.filter((_, i) => i !== idx)
+                                  } : null);
+                                }}
+                                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-text-muted hover:text-rose-400 hover:bg-surface-hover transition-colors cursor-pointer"
+                                title="参加ログを削除"
+                                aria-label="参加ログを削除"
+                              >
+                                <Trash2 className="w-3.5 h-3.5"/>
+                              </button>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setSelectedMemberDetail(null)}
-              className="w-full py-2.5 bg-surface-subtle hover:bg-surface-hover text-text border border-border font-bold text-xs rounded-xl cursor-pointer"
-            >
-              閉じる
-            </button>
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-border bg-surface-subtle/40 shrink-0">
+              <button
+                type="button"
+                onClick={() => setSelectedMemberDetail(null)}
+                className="w-full py-2.5 min-h-[44px] flex items-center justify-center bg-surface-subtle hover:bg-surface-hover text-text border border-border font-bold text-xs rounded-xl cursor-pointer transition-colors"
+              >
+                閉じる
+              </button>
+            </div>
           </div>
         </div>
       )}

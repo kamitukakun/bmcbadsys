@@ -208,7 +208,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         
         {/* Header - Fixed */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4 sm:px-6 shrink-0">
-          <h3 className="text-base font-bold text-text flex items-center gap-2">
+          <h3 className="text-sm sm:text-base font-bold text-text flex items-center gap-2">
             <Settings className="w-4 h-4 text-accent" />
             <span>クラブ設定 & 資産評価設定</span>
           </h3>
@@ -224,7 +224,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
           {/* Scrollable Body */}
-          <div className="p-5 sm:p-6 space-y-4 text-xs overflow-y-auto flex-1">
+          <div className="p-5 sm:p-6 space-y-3 sm:space-y-4 text-xs overflow-y-auto flex-1">
           
           {/* Club Info Section */}
           <div className="space-y-3">
@@ -240,7 +240,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   required
                   value={clubName}
                   onChange={(e) => setClubName(e.target.value)}
-                  className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:border-accent"
+                  className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:border-accent"
                 />
               </div>
 
@@ -250,7 +250,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   type="text"
                   value={treasurerName}
                   onChange={(e) => setTreasurerName(e.target.value)}
-                  className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:border-accent"
+                  className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-semibold sm:leading-normal focus:outline-none focus:border-accent"
                 />
               </div>
             </div>
@@ -375,7 +375,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 </div>
                 <div className="space-y-0.5">
                   <div className="font-bold text-text text-xs">
-                    クリックして画像を選択、またはドラッグ＆ドロップ
+                    タップして画像を選択(PC・タブレットはドラッグ＆ドロップも可)
                   </div>
                   <div className="text-[10px] text-text-subtle">
                     PNG, JPG, WebP, SVG (推奨: 正方形のロゴ・写真)
@@ -390,7 +390,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 <div className="text-[11px] text-text-muted">
                   お好みのシンボル・絵文字を選択:
                 </div>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
                   {PRESET_ICONS.map((item) => {
                     const isSelected = logoUrl === item.emoji;
                     return (
@@ -428,7 +428,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     placeholder="https://example.com/logo.png"
                     value={customUrlInput}
                     onChange={(e) => setCustomUrlInput(e.target.value)}
-                    className="flex-1 p-2 bg-surface border border-border rounded-xl text-text font-medium focus:outline-none focus:border-accent text-xs"
+                    className="flex-1 py-1.5 px-2.5 sm:p-2 bg-surface border border-border rounded-lg sm:rounded-xl text-text font-medium focus:outline-none focus:border-accent text-xs"
                   />
                   <button
                     type="button"

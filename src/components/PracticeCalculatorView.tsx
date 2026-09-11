@@ -522,7 +522,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
         <Calculator className="w-4 h-4 sm:w-5 sm:h-5" />
       </div>
 
-      <h2 className="text-lg sm:text-xl font-bold text-text tracking-tight">
+      <h2 className="text-sm sm:text-xl font-bold text-text tracking-tight">
         {editingSessionId ? '練習会を編集' : '練習会を登録'}
       </h2>
     </div>
@@ -675,7 +675,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                 <select
                   value={selectedShuttleId}
                   onChange={(e) => setSelectedShuttleId(e.target.value)}
-                  className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:ring-2 focus:ring-accent/50"
+                  className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-semibold sm:leading-normal focus:outline-none focus:ring-2 focus:ring-accent/50"
                 >
                   {shuttleInventory.map((s) => {
                     const totalBalls = getShuttleTotalBalls(s);
@@ -704,7 +704,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                       step="10"
                       value={customBallCost}
                       onChange={(e) => setCustomBallCost(Math.max(1, Number(e.target.value)))}
-                      className="w-full pl-7 pr-3 py-2.5 bg-surface-subtle border border-accent/40 rounded-xl text-text font-bold focus:outline-none focus:ring-2 focus:ring-accent/50"
+                      className="w-full pl-7 pr-3 py-2 sm:py-2.5 bg-surface-subtle border border-accent/40 rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:ring-2 focus:ring-accent/50"
                     />
                   </div>
                 ) : (
@@ -889,7 +889,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                     step="100"
                     value={facilityFee}
                     onChange={(e) => setFacilityFee(Math.max(0, Number(e.target.value)))}
-                    className="w-full pl-8 pr-3 py-2.5 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:ring-2 focus:ring-accent/50 text-sm"
+                    className="w-full pl-8 pr-3 py-2 sm:py-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:ring-2 focus:ring-accent/50 text-sm"
                     placeholder="例: 1500"
                   />
                 </div>
@@ -926,7 +926,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                           setLightingHvacFee(isNaN(num) ? '' : Math.max(0, num));
                         }
                       }}
-                      className="w-full pl-8 pr-3 py-2 bg-surface-subtle border border-border rounded-xl text-text font-bold focus:outline-none focus:ring-2 focus:ring-accent/50 text-xs"
+                      className="w-full pl-8 pr-3 py-1.5 sm:py-2 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal focus:outline-none focus:ring-2 focus:ring-accent/50 text-xs"
                       placeholder="0"
                     />
                   </div>
@@ -986,7 +986,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                     <select
                       value={venuePayerMemberId}
                       onChange={(e) => setVenuePayerMemberId(e.target.value)}
-                      className="w-full p-2 bg-surface border border-amber-500/40 rounded-xl text-text font-semibold focus:outline-none focus:border-amber-400 text-xs"
+                      className="w-full py-1.5 px-2.5 sm:p-2 bg-surface border border-amber-500/40 rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-semibold sm:leading-normal focus:outline-none focus:border-amber-400 text-xs"
                     >
                       {members.filter(m => !m.isDeleted).map(m => (
                         <option key={m.id} value={m.id} className="bg-surface text-text">
@@ -1009,7 +1009,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text font-semibold focus:outline-none focus:border-accent"
+                  className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-semibold sm:leading-normal focus:outline-none focus:border-accent"
                 />
               </div>
               <div className="sm:col-span-2">
@@ -1018,7 +1018,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
+                  className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
                 />
               </div>
             </div>
@@ -1028,7 +1028,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                 type="text"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full p-2.5 bg-surface-subtle border border-border rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
+                className="w-full py-2 px-2.5 sm:p-2.5 bg-surface-subtle border border-border rounded-lg sm:rounded-xl text-text placeholder-text-subtle focus:outline-none focus:border-accent"
               />
             </div>
           </div>
@@ -1089,7 +1089,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                       step="50"
                       value={customAppliedFee !== null ? customAppliedFee : calc.recommendedFee100}
                       onChange={(e) => setCustomAppliedFee(Number(e.target.value))}
-                      className="w-full pl-7 pr-3 py-1.5 bg-surface border border-border rounded-xl text-text font-bold text-xs focus:outline-none focus:ring-2 focus:ring-accent/50"
+                      className="w-full pl-7 pr-3 py-1.5 bg-surface border border-border rounded-lg sm:rounded-xl text-text font-medium leading-snug sm:font-bold sm:leading-normal text-xs focus:outline-none focus:ring-2 focus:ring-accent/50"
                     />
                   </div>
                   <span className="text-xs text-text-muted font-semibold whitespace-nowrap">円/人</span>
@@ -1227,7 +1227,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
             <button
               type="button"
               onClick={handleSaveToLedger}
-              className={`w-full min-h-[48px] py-3 mb-3 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-xl transition-all cursor-pointer active:scale-[0.98] ${
+              className={`w-full min-h-[48px] py-3 mb-3 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xl transition-all cursor-pointer active:scale-[0.98] ${
                 editingSessionId
                   ? 'bg-amber-500 hover:bg-amber-400 text-white'
                   : 'bg-accent hover:bg-accent-hover text-accent-text'
@@ -1280,7 +1280,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                         {session.timeSlotLabel}
                       </span>
                     )}
-                    <span className="text-text-muted font-medium whitespace-nowrap">{session.location}</span>
+                    <span className="text-text-muted font-medium">{session.location}</span>
                   </div>
                   <div className="flex items-center gap-x-3 gap-y-1 text-xs flex-wrap">
                     <span className="text-rose-400 font-bold whitespace-nowrap">総原価: {formatCurrency(session.totalCost)}</span>
@@ -1297,7 +1297,7 @@ export const PracticeCalculatorView: React.FC<PracticeCalculatorViewProps> = ({
                     <span className="whitespace-nowrap">シャトル消費: <strong className="text-text font-semibold">{session.shuttleUsedCount}本</strong></span>
                     {session.facilityFee > 0 && <span className="whitespace-nowrap">体育館料: <strong className="text-text font-semibold">{formatCurrency(session.facilityFee)}</strong></span>}
                     {(session.lightingHvacFee || 0) > 0 && <span className="whitespace-nowrap">(照明・空調: +{formatCurrency(session.lightingHvacFee || 0)})</span>}
-                    {session.notes && <span className="text-text-subtle italic whitespace-nowrap">({session.notes})</span>}
+                    {session.notes && <span className="text-text-subtle italic">({session.notes})</span>}
                   </div>
                   <div className="flex items-center justify-end gap-1.5 flex-wrap sm:flex-nowrap shrink-0 pt-1 md:pt-0 border-t md:border-t-0 border-border">
                     <button
