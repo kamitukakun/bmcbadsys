@@ -230,25 +230,139 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 gap-3">
           
-          {/* Logo & Club Info */}
+          {/* Account Avatar & Club Info */}
           <div className="flex items-center gap-3">
-            {settings.logoUrl ? (
-              settings.logoUrl.startsWith('data:') || settings.logoUrl.startsWith('http') ? (
-                <img 
-                  src={settings.logoUrl} 
-                  alt={settings.clubName} 
-                  className="w-10 h-10 rounded-full object-cover shadow-md ring-2 ring-accent/30 bg-header-bg shrink-0" 
-                />
-              ) : (
-                <div className="w-10 h-10 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center text-xl shadow-md shrink-0">
-                  <span>{settings.logoUrl}</span>
+            <div className="relative shrink-0" ref={userMenuRef}>
+              <button
+                id="header-btn-user-menu"
+                type="button"
+                onClick={() => setIsUserMenuOpen(prev => !prev)}
+                className="relative rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 transition-all cursor-pointer shadow-md ring-2 ring-accent/20 focus:outline-none focus:ring-2 focus:ring-accent flex items-center justify-center w-10 h-10"
+                aria-label="アカウントメニューを開く"
+                aria-expanded={isUserMenuOpen}
+                title={user ? `アカウント: ${user.email || user.displayName || 'ユーザー'}` : 'アカウントメニュー'}
+              >
+                <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center text-accent-text bg-accent">
+                  {user?.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt={user.displayName || user.email || 'ユーザー'}
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <User className="w-5 h-5 text-accent-text" />
+                  )}
                 </div>
-              )
-            ) : (
-              <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-accent-text shadow-md ring-2 ring-accent/20 shrink-0">
-                <span className="text-xl">🏸</span>
-              </div>
-            )}
+                {/* クラウド同期ステータスインジケーター */}
+                {user && (
+                  <span
+                    className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-header-bg ${
+                      syncStatus === 'syncing'
+                        ? 'bg-sky-400 animate-pulse'
+                        : syncStatus === 'synced'
+                          ? 'bg-emerald-400'
+                          : 'bg-amber-400'
+                    }`}
+                    title={
+                      syncStatus === 'syncing'
+                        ? 'クラウド同期中'
+                        : syncStatus === 'synced'
+                          ? 'クラウド同期完了'
+                          : 'オフライン保存'
+                    }
+                  />
+                )}
+              </button>
+
+              {/* Dropdown Menu */}
+              {isUserMenuOpen && user && (
+                <div
+                  className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-surface border border-border rounded-2xl shadow-2xl p-4 space-y-3 z-50 text-text animate-fade-in"
+                  style={{ minWidth: '260px' }}
+                >
+                  {/* User Info Header */}
+                  <div className="flex items-center gap-3 pb-3 border-b border-border">
+                    <div className="w-10 h-10 rounded-full bg-surface-subtle border border-border flex items-center justify-center overflow-hidden shrink-0 text-text">
+                      {user.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          alt={user.displayName || user.email || 'ユーザー'}
+                          className="w-full h-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <User className="w-5 h-5 text-text-muted" />
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[10px] text-text-muted font-bold tracking-wider uppercase">ログイン中</div>
+                      <div className="text-xs sm:text-sm font-black text-text truncate" title={user.email || user.displayName || ''}>
+                        {user.email || user.displayName}
+                      </div>
+                      {user.displayName && user.email && (
+                        <div className="text-[11px] text-text-muted truncate">
+                          {user.displayName}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Sync Status Info */}
+                  <div className="bg-surface-subtle border border-border rounded-xl p-2.5 flex items-center justify-between text-xs gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className={`w-2 h-2 rounded-full shrink-0 ${
+                        syncStatus === 'syncing'
+                          ? 'bg-sky-400 animate-pulse'
+                          : syncStatus === 'synced'
+                            ? 'bg-accent animate-pulse'
+                            : 'bg-amber-400'
+                      }`} />
+                      <span className="text-text-muted font-medium shrink-0">同期状況:</span>
+                    </div>
+                    <div className="shrink-0">
+                      {syncStatus === 'syncing' ? (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-sky-500">
+                          <RefreshCw className="w-3 h-3 animate-spin" />
+                          <span>同期中...</span>
+                        </span>
+                      ) : syncStatus === 'synced' ? (
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-accent">
+                          <span>☁ クラウド同期完了</span>
+                        </span>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            saveToCloud();
+                          }}
+                          className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 hover:text-amber-700 dark:text-amber-400 hover:underline cursor-pointer"
+                        >
+                          <span>⚠ オフライン保存 (再試行)</span>
+                          <RefreshCw className="w-3 h-3 animate-spin" />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Logout Button */}
+                  <div className="pt-1">
+                    <button
+                      id="header-btn-logout"
+                      type="button"
+                      onClick={async () => {
+                        setIsUserMenuOpen(false);
+                        await logout();
+                      }}
+                      className="w-full py-2.5 px-3 bg-surface-subtle hover:bg-rose-500/10 text-rose-500 dark:text-rose-400 border border-border hover:border-rose-500/30 rounded-xl transition-all flex items-center justify-center gap-2 font-bold text-xs cursor-pointer active:scale-[0.99]"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>ログアウト</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-sm sm:text-lg font-bold text-header-text leading-tight tracking-tight truncate max-w-[200px] sm:max-w-none">
@@ -279,7 +393,7 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 relative" ref={userMenuRef}>
+            <div className="flex items-center gap-1.5">
               {/* Print Report */}
               <button
                 id="header-btn-print-report"
@@ -311,139 +425,6 @@ export const Header: React.FC<HeaderProps> = ({
                 <PlusCircle className="w-4 h-4 text-accent-text shrink-0" />
                 <span>収支を記帳</span>
               </button>
-
-              {/* User Account Avatar / Dropdown Toggle Button */}
-              {user && (
-                <div className="relative">
-                  <button
-                    id="header-btn-user-menu"
-                    type="button"
-                    onClick={() => setIsUserMenuOpen(prev => !prev)}
-                    className="relative p-1 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 transition-all cursor-pointer shadow-sm focus:outline-none focus:ring-2 focus:ring-accent flex items-center justify-center min-h-[38px] min-w-[38px]"
-                    aria-label="アカウントメニューを開く"
-                    aria-expanded={isUserMenuOpen}
-                    title={`アカウント: ${user.email || user.displayName || 'ユーザー'}`}
-                  >
-                    <div className="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden text-xs font-bold text-slate-200">
-                      {user.photoURL ? (
-                        <img 
-                          src={user.photoURL} 
-                          alt={user.displayName || user.email || 'ユーザー'} 
-                          className="w-full h-full object-cover"
-                          referrerPolicy="no-referrer"
-                        />
-                      ) : (
-                        <User className="w-4 h-4 text-slate-300" />
-                      )}
-                    </div>
-                    {/* クラウド同期ステータスインジケーター */}
-                    <span 
-                      className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-header-bg ${
-                        syncStatus === 'syncing' 
-                          ? 'bg-sky-400 animate-pulse' 
-                          : syncStatus === 'synced' 
-                            ? 'bg-emerald-400' 
-                            : 'bg-amber-400'
-                      }`}
-                      title={
-                        syncStatus === 'syncing' 
-                          ? 'クラウド同期中' 
-                          : syncStatus === 'synced' 
-                            ? 'クラウド同期完了' 
-                            : 'オフライン保存'
-                      }
-                    />
-                  </button>
-
-                  {/* Dropdown Menu */}
-                  {isUserMenuOpen && (
-                    <div 
-                      className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-surface border border-border rounded-2xl shadow-2xl p-4 space-y-3 z-50 text-text animate-fade-in"
-                      style={{ minWidth: '260px' }}
-                    >
-                      {/* User Info Header */}
-                      <div className="flex items-center gap-3 pb-3 border-b border-border">
-                        <div className="w-10 h-10 rounded-full bg-surface-subtle border border-border flex items-center justify-center overflow-hidden shrink-0 text-text">
-                          {user.photoURL ? (
-                            <img 
-                              src={user.photoURL} 
-                              alt={user.displayName || user.email || 'ユーザー'} 
-                              className="w-full h-full object-cover"
-                              referrerPolicy="no-referrer"
-                            />
-                          ) : (
-                            <User className="w-5 h-5 text-text-muted" />
-                          )}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="text-[10px] text-text-muted font-bold tracking-wider uppercase">ログイン中</div>
-                          <div className="text-xs sm:text-sm font-black text-text truncate" title={user.email || user.displayName || ''}>
-                            {user.email || user.displayName}
-                          </div>
-                          {user.displayName && user.email && (
-                            <div className="text-[11px] text-text-muted truncate">
-                              {user.displayName}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Sync Status Info */}
-                      <div className="bg-surface-subtle border border-border rounded-xl p-2.5 flex items-center justify-between text-xs gap-2">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span className={`w-2 h-2 rounded-full shrink-0 ${
-                            syncStatus === 'syncing' 
-                              ? 'bg-sky-400 animate-pulse' 
-                              : syncStatus === 'synced' 
-                                ? 'bg-accent animate-pulse' 
-                                : 'bg-amber-400'
-                          }`} />
-                          <span className="text-text-muted font-medium shrink-0">同期状況:</span>
-                        </div>
-                        <div className="shrink-0">
-                          {syncStatus === 'syncing' ? (
-                            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-sky-500">
-                              <RefreshCw className="w-3 h-3 animate-spin" />
-                              <span>同期中...</span>
-                            </span>
-                          ) : syncStatus === 'synced' ? (
-                            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-accent">
-                              <span>☁ クラウド同期完了</span>
-                            </span>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => {
-                                saveToCloud();
-                              }}
-                              className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-600 hover:text-amber-700 dark:text-amber-400 hover:underline cursor-pointer"
-                            >
-                              <span>⚠ オフライン保存 (再試行)</span>
-                              <RefreshCw className="w-3 h-3 animate-spin" />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Logout Button */}
-                      <div className="pt-1">
-                        <button
-                          id="header-btn-logout"
-                          type="button"
-                          onClick={async () => {
-                            setIsUserMenuOpen(false);
-                            await logout();
-                          }}
-                          className="w-full py-2.5 px-3 bg-surface-subtle hover:bg-rose-500/10 text-rose-500 dark:text-rose-400 border border-border hover:border-rose-500/30 rounded-xl transition-all flex items-center justify-center gap-2 font-bold text-xs cursor-pointer active:scale-[0.99]"
-                        >
-                          <LogOut className="w-4 h-4" />
-                          <span>ログアウト</span>
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
           </div>
 

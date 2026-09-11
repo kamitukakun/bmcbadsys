@@ -1,21 +1,16 @@
-import React, { useState, useRef } from 'react';
-import { 
-  Settings, 
-  Save, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Percent, 
-  Palette, 
-  Sparkles, 
+import React, { useState } from 'react';
+import {
+  Settings,
+  Save,
+  AlertTriangle,
+  CheckCircle2,
+  Percent,
+  Palette,
+  Sparkles,
   Sun,
-  Feather, 
-  Gamepad2, 
+  Feather,
+  Gamepad2,
   Check,
-  Image as ImageIcon,
-  Upload,
-  Link,
-  Trash2,
-  Smile
 } from 'lucide-react';
 import { ClubSettings, AppTheme } from '../types';
 import { useAuth } from './AuthGate';
@@ -42,58 +37,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const [treasurerName, setTreasurerName] = useState(settings.treasurerName);
   const [valuationRate, setValuationRate] = useState(settings.shuttleValuationRate || 80);
   const [selectedTheme, setSelectedTheme] = useState<AppTheme>(settings.theme || 'default');
-  const [logoUrl, setLogoUrl] = useState(settings.logoUrl || '');
-  const [logoInputType, setLogoInputType] = useState<'upload' | 'url' | 'preset'>('upload');
-  const [customUrlInput, setCustomUrlInput] = useState('');
-  const [isDragging, setIsDragging] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [confirmAction, setConfirmAction] = useState<'reset' | null>(null);
   const [isResetting, setIsResetting] = useState(false);
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleFileChange = (file: File | null) => {
-    if (!file) return;
-    if (!file.type.startsWith('image/')) {
-      alert('画像ファイル (PNG, JPG, SVG, WebP等) を選択してください。');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      if (typeof e.target?.result === 'string') {
-        setLogoUrl(e.target.result);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFileChange(e.dataTransfer.files[0]);
-    }
-  };
-
-  const handleApplyCustomUrl = () => {
-    if (customUrlInput.trim()) {
-      setLogoUrl(customUrlInput.trim());
-      setCustomUrlInput('');
-    }
-  };
-
-  const PRESET_ICONS = [
-    { label: 'バドミントン', emoji: '🏸' },
-    { label: 'トロフィー', emoji: '🏆' },
-    { label: 'メダル', emoji: '🥇' },
-    { label: 'イーグル', emoji: '🦅' },
-    { label: 'イナズマ', emoji: '⚡' },
-    { label: 'スター', emoji: '🌟' },
-    { label: 'ファイヤー', emoji: '🔥' },
-    { label: 'クラウン', emoji: '👑' },
-    { label: 'ターゲット', emoji: '🎯' },
-    { label: 'シールド', emoji: '🛡️' },
-  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,7 +49,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       treasurerName,
       shuttleValuationRate: Number(valuationRate),
       theme: selectedTheme,
-      logoUrl: logoUrl.trim() || undefined,
+      logoUrl: settings.logoUrl,
     });
     setSaveSuccess(true);
     setTimeout(() => {
@@ -254,193 +200,6 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 />
               </div>
             </div>
-          </div>
-
-          {/* Team Logo / Image Section */}
-          <div className="p-4 bg-surface-subtle rounded-xl border border-border space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="font-bold text-text flex items-center gap-1.5">
-                <ImageIcon className="w-4 h-4 text-accent" />
-                <span>チーム画像・ロゴ設定</span>
-              </div>
-              {logoUrl && (
-                <button
-                  type="button"
-                  onClick={() => setLogoUrl('')}
-                  className="text-[11px] text-rose-400 hover:text-rose-300 font-bold flex items-center gap-1 cursor-pointer transition-colors"
-                  title="画像を削除してデフォルトの🏸アイコンに戻す"
-                >
-                  <Trash2 className="w-3 h-3" />
-                  <span>初期アイコンに戻す</span>
-                </button>
-              )}
-            </div>
-
-            {/* Preview & Current State */}
-            <div className="flex items-center gap-3.5 p-3 rounded-xl bg-surface border border-border">
-              <div className="relative shrink-0">
-                {logoUrl ? (
-                  logoUrl.startsWith('data:') || logoUrl.startsWith('http') ? (
-                    <img 
-                      src={logoUrl} 
-                      alt="Team Logo Preview" 
-                      className="w-14 h-14 rounded-full object-cover shadow-md ring-2 ring-accent/30 bg-surface-subtle" 
-                    />
-                  ) : (
-                    <div className="w-14 h-14 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center text-2xl shadow-md">
-                      {logoUrl}
-                    </div>
-                  )
-                ) : (
-                  <div className="w-14 h-14 rounded-full bg-accent flex items-center justify-center text-2xl text-accent-text shadow-md ring-2 ring-accent/20">
-                    🏸
-                  </div>
-                )}
-              </div>
-              <div className="space-y-1 min-w-0 flex-1">
-                <div className="font-bold text-text text-xs flex items-center gap-2">
-                  <span className="truncate">{clubName || 'クラブ名未設定'}</span>
-                  <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-accent/10 text-accent border border-accent/20 whitespace-nowrap shrink-0">
-                    {logoUrl ? 'カスタム設定中' : 'デフォルト'}
-                  </span>
-                </div>
-                <p className="text-[11px] text-text-muted leading-tight">
-                  ヘッダーおよび印刷プレビュー等に表示されるチームシンボルです。
-                </p>
-              </div>
-            </div>
-
-            {/* Input Mode Selector */}
-            <div className="flex items-center gap-1.5 p-1 bg-surface rounded-xl border border-border">
-              <button
-                type="button"
-                onClick={() => setLogoInputType('upload')}
-                className={`flex-1 py-1.5 px-2 rounded-xl font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                  logoInputType === 'upload'
-                    ? 'bg-surface-hover text-accent shadow-sm'
-                    : 'text-text-muted hover:text-text'
-                }`}
-              >
-                <Upload className="w-3.5 h-3.5" />
-                <span>画像アップロード</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setLogoInputType('preset')}
-                className={`flex-1 py-1.5 px-2 rounded-xl font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                  logoInputType === 'preset'
-                    ? 'bg-surface-hover text-accent shadow-sm'
-                    : 'text-text-muted hover:text-text'
-                }`}
-              >
-                <Smile className="w-3.5 h-3.5" />
-                <span>プリセット</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setLogoInputType('url')}
-                className={`flex-1 py-1.5 px-2 rounded-xl font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                  logoInputType === 'url'
-                    ? 'bg-surface-hover text-accent shadow-sm'
-                    : 'text-text-muted hover:text-text'
-                }`}
-              >
-                <Link className="w-3.5 h-3.5" />
-                <span>画像URL</span>
-              </button>
-            </div>
-
-            {/* Upload Area */}
-            {logoInputType === 'upload' && (
-              <div
-                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-                onDragLeave={() => setIsDragging(false)}
-                onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
-                className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-all flex flex-col items-center justify-center gap-2 ${
-                  isDragging 
-                    ? 'border-accent bg-accent/10' 
-                    : 'border-border hover:border-accent bg-surface/40 hover:bg-surface/70'
-                }`}
-              >
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
-                  className="hidden"
-                />
-                <div className="p-2 rounded-full bg-surface-subtle text-text-muted">
-                  <Upload className="w-5 h-5 text-accent" />
-                </div>
-                <div className="space-y-0.5">
-                  <div className="font-bold text-text text-xs">
-                    タップして画像を選択(PC・タブレットはドラッグ＆ドロップも可)
-                  </div>
-                  <div className="text-[10px] text-text-subtle">
-                    PNG, JPG, WebP, SVG (推奨: 正方形のロゴ・写真)
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Preset Selector */}
-            {logoInputType === 'preset' && (
-              <div className="space-y-2">
-                <div className="text-[11px] text-text-muted">
-                  お好みのシンボル・絵文字を選択:
-                </div>
-                <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
-                  {PRESET_ICONS.map((item) => {
-                    const isSelected = logoUrl === item.emoji;
-                    return (
-                      <button
-                        key={item.label}
-                        type="button"
-                        onClick={() => setLogoUrl(item.emoji)}
-                        className={`p-2.5 rounded-xl border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
-                          isSelected
-                            ? 'border-accent bg-accent/10 shadow-sm'
-                            : 'border-border bg-surface/60 hover:bg-surface hover:border-border'
-                        }`}
-                        title={item.label}
-                      >
-                        <span className="text-xl">{item.emoji}</span>
-                        <span className="text-[9px] text-text-muted truncate w-full text-center">
-                          {item.label}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {/* URL Input */}
-            {logoInputType === 'url' && (
-              <div className="space-y-2">
-                <label className="block text-[11px] text-text-muted">
-                  画像のWebアドレス (URL) を入力:
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="url"
-                    placeholder="https://example.com/logo.png"
-                    value={customUrlInput}
-                    onChange={(e) => setCustomUrlInput(e.target.value)}
-                    className="flex-1 py-1.5 px-2.5 sm:p-2 bg-surface border border-border rounded-lg sm:rounded-xl text-text font-medium focus:outline-none focus:border-accent text-xs"
-                  />
-                  <button
-                    type="button"
-                    onClick={handleApplyCustomUrl}
-                    disabled={!customUrlInput.trim()}
-                    className="px-3 py-2 bg-surface-subtle hover:bg-surface-hover border border-border disabled:opacity-50 text-accent font-bold rounded-xl text-xs transition-colors cursor-pointer shrink-0"
-                  >
-                    適用
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Shuttle Inventory Asset Valuation Setting */}
